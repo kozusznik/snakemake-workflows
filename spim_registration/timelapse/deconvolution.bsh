@@ -38,21 +38,40 @@ System.out.println( "process_illumination = " + process_illumination );
 System.out.println( "process_angle = " + process_angle );
 
 // Load bounding box
-minimal_x_deco = System.getProperty( "minimal_x_deco" );
-minimal_y_deco = System.getProperty( "minimal_y_deco" );
-minimal_z_deco = System.getProperty( "minimal_z_deco" );
-maximal_x_deco = System.getProperty( "maximal_x_deco" );
-maximal_y_deco = System.getProperty( "maximal_y_deco" );
-maximal_z_deco = System.getProperty( "maximal_z_deco" );
+bounding_box = System.getProperty( "bounding_box" );
+bounding_box_title = "";
+minimal_x_deco = 0;
+minimal_y_deco = 0;
+minimal_z_deco = 0;
+maximal_x_deco = 0;
+maximal_y_deco = 0;
+maximal_z_deco = 0;
 
 System.out.println( "-------------------------------------------------------" );
-System.out.println( "Bounding box: " );
-System.out.println( "minimal_x_deco = " + minimal_x_deco );
-System.out.println( "minimal_y_deco = " + minimal_y_deco );
-System.out.println( "minimal_z_deco = " + minimal_z_deco );
-System.out.println( "maximal_x_deco = " + maximal_x_deco );
-System.out.println( "maximal_y_deco = " + maximal_y_deco );
-System.out.println( "maximal_z_deco = " + maximal_z_deco );
+
+if (bounding_box.equalsIgnoreCase("Use pre-defined Bounding box"))
+{
+	bounding_box_title = System.getProperty( "bounding_box_title" );
+	System.out.println( "Using pre-defined Bounding Box named " + bounding_box_title );
+}
+
+else
+{
+	minimal_x_deco = System.getProperty( "minimal_x_deco" );
+	minimal_y_deco = System.getProperty( "minimal_y_deco" );
+	minimal_z_deco = System.getProperty( "minimal_z_deco" );
+	maximal_x_deco = System.getProperty( "maximal_x_deco" );
+	maximal_y_deco = System.getProperty( "maximal_y_deco" );
+	maximal_z_deco = System.getProperty( "maximal_z_deco" );
+
+	System.out.println( "Using manually defined Bounding box: " );
+	System.out.println( "minimal_x_deco = " + minimal_x_deco );
+	System.out.println( "minimal_y_deco = " + minimal_y_deco );
+	System.out.println( "minimal_z_deco = " + minimal_z_deco );
+	System.out.println( "maximal_x_deco = " + maximal_x_deco );
+	System.out.println( "maximal_y_deco = " + maximal_y_deco );
+	System.out.println( "maximal_z_deco = " + maximal_z_deco );
+}
 
 // Load deconvolution Parameters
 imglib2_container_deco = System.getProperty( "imglib2_container_deco" );
@@ -177,8 +196,9 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
 	"type_of_image_fusion=[Multi-view deconvolution] " +
-	"bounding_box=[Define manually] " +
+	"bounding_box=[" + bounding_box + "] " +
 	"fused_image=[" + fused_image + "] " +
+	"bounding_box_title=[" + bounding_box_title + "] " +
 	"minimal_x=" + minimal_x_deco + " " +
 	"minimal_y=" + minimal_y_deco + " " +
 	"minimal_z=" + minimal_z_deco + " " +
@@ -212,8 +232,9 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
 	"type_of_image_fusion=[Multi-view deconvolution] " +
-	"bounding_box=[Define manually] " +
+	"bounding_box=[" + bounding_box + "] " +
 	"fused_image=[" + fused_image + "] " +
+	"bounding_box_title=[" + bounding_box_title + "] " +
 	"minimal_x=" + minimal_x_deco + " " +
 	"minimal_y=" + minimal_y_deco + " " +
 	"minimal_z=" + minimal_z_deco + " " +

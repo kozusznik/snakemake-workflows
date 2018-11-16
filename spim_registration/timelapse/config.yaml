@@ -163,12 +163,23 @@ common: {
   #          Channel settings for deconvolution
   # ----------------------------------------------------------------------------
   iterations: '15',        # number of iterations
-  minimal_x_deco: '137',  # Cropping parameters: take downsampling into account
-  minimal_y_deco: '-8',
-  minimal_z_deco: '-211',
-  maximal_x_deco: '527',
-  maximal_y_deco: '964',
-  maximal_z_deco: '240',
+  
+  # Bounding box settings
+  #
+  # Description: determines whether a pre-defined bounding box will be used or not
+  # Options: "Use pre-defined bounding box"
+  #            - requires "bounding_box_title"
+  #          "Define manually"
+  #            - requires particular coordinates to be set
+  bounding_box: '"Use pre-defined bounding_box",
+  bounding_box_title: '"My bounding box",
+  # minimal_x_deco: '137',  # Cropping parameters: take downsampling into account
+  # minimal_y_deco: '-8',
+  # minimal_z_deco: '-211',
+  # maximal_x_deco: '527',
+  # maximal_y_deco: '964',
+  # maximal_z_deco: '240',
+  
   # Channel settings for deconvolution
   # Single Channel: '"beads"'
   # Dual Channel: '"beads,beads"'
