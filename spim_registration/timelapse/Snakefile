@@ -404,7 +404,7 @@ rule deconvolution:
         -Dmaximal_x_deco={maximal_x_deco} \
         -Dmaximal_y_deco={maximal_y_deco} \
         -Dmaximal_z_deco={maximal_z_deco} \
-        -Dimglib2_container_deco={imglib2_container} \
+        -Dimglib2_container_deco={imglib2_container_deco} \
         -Dtype_of_iteration={type_of_iteration} \
 		-Dimage_weights={image_weights} \
         -Dosem_acceleration={osem_acceleration} \

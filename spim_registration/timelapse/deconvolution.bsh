@@ -91,8 +91,8 @@ System.out.println( "maximal_y_deco = " + maximal_y_deco );
 System.out.println( "maximal_z_deco = " + maximal_z_deco );
 
 // Load deconvolution Parameters
-imglib2_container_deco = System.getProperty( "imglib2_container_deco" );
-imglib2_container_ffts_deco = System.getProperty( "imglib2_container_ffts_deco" );
+imglib2_container = System.getProperty( "imglib2_container_deco" );
+imglib2_container_ffts = System.getProperty( "imglib2_container_deco" );
 type_of_iteration = System.getProperty( "type_of_iteration" );
 image_weights = System.getProperty( "image_weights" );
 osem_acceleration = System.getProperty( "osem_acceleration" );
@@ -105,8 +105,8 @@ deco_output_file_directory = System.getProperty( "deco_output_file_directory" );
 
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Deconvolution settings: " );
-System.out.println( "imglib2_container = " + imglib2_container_deco );
-System.out.println( "imglib2_container_ffts = " + imglib2_container_ffts_deco );
+System.out.println( "imglib2_container = " + imglib2_container );
+System.out.println( "imglib2_container_ffts = " + imglib2_container_ffts );
 System.out.println( "type_of_iteration = " + type_of_iteration );
 System.out.println( "image_weights = " + image_weights );
 System.out.println( "osem_acceleration = " + osem_acceleration );
@@ -260,8 +260,8 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"maximal_x=" + maximal_x_deco + " " +
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
-	"imglib2_container=" + imglib2_container_deco + " " +
-	"imglib2_container_ffts=" + imglib2_container_ffts_deco + " " +
+	"imglib2_container=[" + imglib2_container + "] " +
+	"imglib2_container_ffts=[" + imglib2_container_ffts + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
 	"image_weights=[" + image_weights + "] " +
 	"osem_acceleration=[" + osem_acceleration + "] " +
@@ -301,8 +301,8 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"maximal_x=" + maximal_x_deco + " " +
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
-	"imglib2_container=" + imglib2_container_deco + " " +
-	"imglib2_container_ffts=" + imglib2_container_ffts_deco + " " +
+	"imglib2_container=[" + imglib2_container_deco + "] " +
+	"imglib2_container_ffts=[" + imglib2_container_deco + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
 	"image_weights=[" + image_weights + "] " +
 	"osem_acceleration=[" + osem_acceleration + "] " +
