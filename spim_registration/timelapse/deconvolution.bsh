@@ -40,12 +40,12 @@ System.out.println( "process_angle = " + process_angle );
 // Load bounding box
 bounding_box = System.getProperty( "bounding_box" );
 bounding_box_title = "";
-minimal_x_deco = 0;
-minimal_y_deco = 0;
-minimal_z_deco = 0;
-maximal_x_deco = 0;
-maximal_y_deco = 0;
-maximal_z_deco = 0;
+minimal_x_deco = "";
+minimal_y_deco = "";
+minimal_z_deco = "";
+maximal_x_deco = "";
+maximal_y_deco = "";
+maximal_z_deco = "";
 
 System.out.println( "-------------------------------------------------------" );
 
@@ -75,7 +75,9 @@ else
 
 // Load deconvolution Parameters
 imglib2_container_deco = System.getProperty( "imglib2_container_deco" );
+imglib2_container_ffts_deco = System.getProperty( "imglib2_container_ffts_deco" );
 type_of_iteration = System.getProperty( "type_of_iteration" );
+image_weights = System.getProperty( "image_weights" );
 osem_acceleration = System.getProperty( "osem_acceleration" );
 Tikhonov_parameter = System.getProperty( "Tikhonov_parameter" );
 //float Tikhonov_parameter = Float.parseFloat( System.getProperty( "Tikhonov_parameter" ) );
@@ -87,7 +89,9 @@ deco_output_file_directory = System.getProperty( "deco_output_file_directory" );
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Deconvolution settings: " );
 System.out.println( "imglib2_container = " + imglib2_container_deco );
-System.out.println( "type_of_iteration = "+ type_of_iteration );
+System.out.println( "imglib2_container_ffts = " + imglib2_container_ffts_deco );
+System.out.println( "type_of_iteration = " + type_of_iteration );
+System.out.println( "image_weights = " + image_weights );
 System.out.println( "osem_acceleration = " + osem_acceleration );
 System.out.println( "Tikhonov_parameter = " + Tikhonov_parameter );
 System.out.println( "compute = " + compute );
@@ -96,6 +100,7 @@ System.out.println( "number_of_iterations = " + iterations );
 System.out.println( "deco_output_file_directory = " + deco_output_file_directory );
 
 // PSF Parameters
+
 psf_size_x = System.getProperty( "psf_size_x" );
 psf_size_y = System.getProperty( "psf_size_y" );
 psf_size_z = System.getProperty( "psf_size_z" );
@@ -105,6 +110,40 @@ System.out.println( "PSF Parameters: " );
 System.out.println( "psf_size_x = " + psf_size_x );
 System.out.println( "psf_size_y = " + psf_size_y );
 System.out.println( "psf_size_z = " + psf_size_z );
+
+System.out.println("Same PSF for all channels:");
+use_same_psf_for_all_channels = System.getProperty( "use_same_psf_for_all_channels", "No");
+String use_same_psf_for_all_channels_string = "";
+if (fix_bioformats.equalsIgnoreCase( "No" ))
+{
+	System.out.println( "Don't use same PSF for all channels" );
+} 
+else if (fix_bioformats.equalsIgnoreCase( "Yes" )) 
+{
+	use_same_psf_for_all_channels_string = "use_same_psf_for_all_channels ";
+	System.out.println( "Use same PSF for all channels" );
+} 
+else 
+{
+	System.out.println( "Use same PSF for all channels setting bad" );
+}
+
+System.out.println("Transform PSFs:");
+transform_psfs = System.getProperty( "transform_psfs", "No");
+String transform_psfs_string = "";
+if (transform_psfs.equalsIgnoreCase( "No" ))
+{
+	System.out.println( "Don't transform PSFs" );
+} 
+else if (transform_psfs.equalsIgnoreCase( "Yes" )) 
+{
+	transform_psfs_string = "transform_psfs ";
+	System.out.println( "Transform PSFs" );
+} 
+else 
+{
+	System.out.println( "Transform PSFs setting bad" );
+}
 
 
 // Channel settings
@@ -206,7 +245,9 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
 	"imglib2_container=" + imglib2_container_deco + " " +
+	"imglib2_container_ffts=" + imglib2_container_ffts_deco + " " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
+	"image_weights=[" + image_weights + "] " +
 	"osem_acceleration=[" + osem_acceleration + "] " +
 	"number_of_iterations=" + iterations + " " +
 //	"adjust_blending_parameters " +
@@ -221,7 +262,9 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	channel_string +
 	"psf_size_x=" + psf_size_x + " " +
 	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + "");
+	"psf_size_z=" + psf_size_z + " " +
+	use_same_psf_for_all_channels_string +
+	transform_psfs_string);
 
 try {
 IJ.run("Fuse/Deconvolve Dataset", 
@@ -242,7 +285,9 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
 	"imglib2_container=" + imglib2_container_deco + " " +
+	"imglib2_container_ffts=" + imglib2_container_ffts_deco + " " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
+	"image_weights=[" + image_weights + "] " +
 	"osem_acceleration=[" + osem_acceleration + "] " +
 	"number_of_iterations=" + iterations + " " +
 //	"adjust_blending_parameters " +
@@ -258,7 +303,9 @@ IJ.run("Fuse/Deconvolve Dataset",
 	channel_string +
 	"psf_size_x=" + psf_size_x + " " +
 	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + "");
+	"psf_size_z=" + psf_size_z + " " +
+	use_same_psf_for_all_channels_string +
+	transform_psfs_string);
 }
 catch ( e ) {
 

@@ -426,6 +426,7 @@ deconvolution: {
   process_channel: '"All channels"',
   process_illumination: '"All illuminations"',
   type_of_iteration: '"Efficient Bayesian - Optimization I (fast, precise)"',
+  image_weights: '"Virtual weights (less memory, slower)"',
   Tikhonov_parameter: '0.0006',
   compute: '"in 512x512x512 blocks"',
   osem_acceleration: '"1 (balanced)"',
@@ -433,7 +434,10 @@ deconvolution: {
   psf_size_x: '19',
   psf_size_y: '19',
   psf_size_z: '25',
+  use_same_psf_for_all_channels: '"Yes"',
+  transform_psfs: '"Yes"',
   imglib2_container: '"ArrayImg"',
+  imglib2_container_ffts: '"ArrayImg"',
   fused_image: '"Save as TIFF stack"',
   bsh_file: "deconvolution.bsh"
   }
