@@ -32,7 +32,7 @@ common: {
   # Transformation switch:
   transformation_switch: "timelapse",
   # Fusion switch:
-  fusion_switch: "fusion",
+  fusion_switch: "deconvolution",
   # ============================================================================
   # 2. Define dataset
   #
@@ -50,10 +50,10 @@ common: {
   #          channels
   #          illuminations
   # ----------------------------------------------------------------------------
-  hdf5_xml_filename: '"dataset_one"', 
-  ntimepoints: 2,        # number of timepoints of dataset
-  angles: "0,72,144,216,288",   # format e.g.: "0,72,144,216,288",
-  channels: "green",     # format e.g.: "green,red", IMPORTANT: for tif 0,1 etc!
+  hdf5_xml_filename: '"dataset_split"', 
+  ntimepoints: 1,        # number of timepoints of dataset
+  angles: "20,50,80,110,140,170",   # format e.g.: "0,72,144,216,288",
+  channels: "488,561",     # format e.g.: "green,red", IMPORTANT: for tif 0,1 etc!
   illumination: "0",     # format e.g.: "0,1",
   #
   # 2.2. Settings for .czi files -----------------------------------------------
@@ -61,7 +61,7 @@ common: {
   # Description: applies only to .czi dataset
   # Options: name of first czi file
   # ----------------------------------------------------------------------------
-  first_czi: "exampleSingleChannel.czi", # use .czi suffix
+  first_czi: "8.czi", # use .czi suffix
   #
   # 2.3. Settings for .tif datasets --------------------------------------------
   #
@@ -78,7 +78,7 @@ common: {
   #
   # Description: settings for interest point detection and registration
   # Options: Single channel and dual channel processing
-  #          Source and traget for dual channel one channel contains the beads
+  #          Source and target for dual channel one channel contains the beads
   #          Interestpoints label
   #          Difference-of-mean or difference-of-gaussian detection
   # ============================================================================
@@ -90,13 +90,13 @@ common: {
   #
   # Dual channel 1 Channel contains the beads: which channel contains the beads?
   # Ignore if Single Channel or Dual Channel both channels contain beads
-  source_channel: "red", # channel that contains the beads
-  target_channel: "green", # channel without beads
+  source_channel: "488", # channel that contains the beads
+  target_channel: "561", # channel without beads
   # reg_interest_points_channel:
   # Single Channel: '"beads"'
   # Dual Channel: '"beads,beads"'
   # Dual Channel: Channel does not contain the beads '"[(DO NOT register this channel)],beads"'
-  reg_interest_points_channel: '"beads"',
+  reg_interest_points_channel: '"nuclei-out,nuclei-out"',
   #
   # type of detection: '"Difference-of-Mean (Integral image based)"' or '"Difference-of-Gaussian"'
   type_of_detection: '"Difference-of-Gaussian"',
@@ -107,8 +107,8 @@ common: {
   reg_threshold: '0.005',
   # Settings for Difference-of-Gaussian
   # For multiple channels 'value1,value2' delimiter is ,
-  sigma: '1.3',
-  threshold_gaussian: '0.025',
+  sigma: '0.5,0.5',
+  threshold_gaussian: '0.025,0.025',
   # ============================================================================
   # 4. Timelapse registration
   #
@@ -150,7 +150,8 @@ common: {
   #
   #          Matrix for downsampling
   # ----------------------------------------------------------------------------
-  external_trafo_switch: "_transform",
+  external_trafo_switch: "_external_trafo",
+  #external_trafo_switch: "",
   #
   # Matrix for downsampling
   matrix_transform: '"0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0"',
@@ -162,29 +163,30 @@ common: {
   #          Cropping parameters taking downsampling into account!
   #          Channel settings for deconvolution
   # ----------------------------------------------------------------------------
-  iterations: '15',        # number of iterations
+  iterations: '5',        # number of iterations
   
   # Bounding box settings
   #
   # Description: determines whether a pre-defined bounding box will be used or not
-  # Options: "Use pre-defined bounding box"
+  # Options: "Use pre-defined Bounding Box"
   #            - requires "bounding_box_title"
   #          "Define manually"
   #            - requires particular coordinates to be set
-  bounding_box: '"Use pre-defined bounding_box",
-  bounding_box_title: '"My bounding box",
-  # minimal_x_deco: '137',  # Cropping parameters: take downsampling into account
-  # minimal_y_deco: '-8',
-  # minimal_z_deco: '-211',
-  # maximal_x_deco: '527',
-  # maximal_y_deco: '964',
-  # maximal_z_deco: '240',
+  bounding_box: '"Use pre-defined Bounding box"',
+  bounding_box_title: '"My Bounding Box"',
+  allow_to_modify: '"No"',
+  minimal_x_deco: '1728',  # Cropping parameters: take downsampling into account
+  minimal_y_deco: '-5696',
+  minimal_z_deco: '-784',
+  maximal_x_deco: '3118',
+  maximal_y_deco: '-4709',
+  maximal_z_deco: '867',
   
   # Channel settings for deconvolution
   # Single Channel: '"beads"'
   # Dual Channel: '"beads,beads"'
   # Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
-  detections_to_extract_psf_for_channel: '"beads"',
+  detections_to_extract_psf_for_channel: '"nuclei-out,nuclei-out"',
   # ============================================================================
   # Resave output
   #
@@ -213,14 +215,14 @@ common: {
   #          sysconfcpus setting
   # ============================================================================
   # current working Fiji
-  fiji-app: "/sw/users/schmied/packages/2015-06-30_Fiji.app.cuda/ImageJ-linux64",
+  fiji-app: "/scratch/work/project/open-12-20/haas/spim/Fiji.app-linux64/ImageJ-linux64 -Xss4m",
   # bean shell scripts and Snakefile
-  bsh_directory: "/projects/pilot_spim/Christopher/snakemake-workflows/spim_registration/timelapse/",
+  bsh_directory: "/scratch/work/project/open-12-20/haas/spim/snakemake-workflows/spim_registration/timelapse/",
   # Directory that contains the cuda libraries
   directory_cuda: "/sw/users/schmied/cuda/",
-  # xvfb 
-  fiji-prefix: "xvfb-run -a",       # calls xvfb for Fiji headless mode
-  sysconfcpus: "sysconfcpus -n",
+  # fiji-prefix: "xvfb-run -a",
+  fiji-prefix: "",
+  sysconfcpus: "/scratch/work/project/open-12-20/haas/spim/bin/sysconfcpus -n",
   memory-prefix: "-Xmx"
   }
   
@@ -233,22 +235,22 @@ common: {
   # ============================================================================
 Fiji_resources: {
   # setting for hdf5 resave:
-  num_cores_hdf5: 3,
+  num_cores_hdf5: 24,
   mem_hdf5: "20g",
   # setting for registration:
-  num_cores_reg: 4,
+  num_cores_reg: 24,
   mem_reg: "40g",
   # setting for timelapse registration:
-  num_cores_time: 3,
+  num_cores_time: 24,
   mem_time: "50g",
   # settings for average fusion:
-  num_cores_fusion: 6,
+  num_cores_fusion: 24,
   mem_fusion: "50g", 
   # settings for deconvolution:
-  num_cores_deco: 12,
+  num_cores_deco: 24,
   mem_deco: "110g",
   # settings for resaving of output:
-  num_cores_output: 3,
+  num_cores_output: 24,
   mem_output: "20g"
   }
   # ============================================================================
@@ -277,9 +279,10 @@ define_xml_czi: {
   czi_pixel_distance_y: '0.285901069641113',  # Manual calibration y
   czi_pixel_distance_z: '1.500000000000000',  # Manual calibration z
   czi_pixel_unit: "um",             # unit of manual calibration
-  rotation_around: "X-Axis",       # axis of acquistion
-  bsh_file: "define_czi.bsh",      # .bsh script for defining .czi file
-  fix_bioformats: "No"
+  rotation_around: "Y-Axis",       # axis of acquistion
+  bsh_file: "define_czi.bsh",       # .bsh script for defining .czi file
+  apply_rotation_to_dataset: "Yes",
+  fix_bioformats: "Yes"
   }
   
   # ----------------------------------------------------------------------------
@@ -312,8 +315,8 @@ resave_hdf5: {
   setups_per_partition: '0',
   timepoints_per_partition: '1',
   resave_timepoint: '"All Timepoints"',
-  resave_angle: '"All angles"',
-  resave_channel: '"All channels"',
+  resave_angle: '"[Single channel (Select from List)] processing_channel=[488]"',
+  resave_channel: '"0"',
   resave_illumination: '"All illuminations"',
   bsh_file: "export.bsh"
   }
@@ -387,7 +390,7 @@ fusion: {
   process_angle: '"All angles"',
   process_channel: '"All channels"',
   process_illumination: '"All illuminations"',
-  imglib2_container_fusion: '"ArrayImg"', # '"ArrayImg"' for larger datasets use: '"[CellImg (large images)]"'
+  imglib2_container_fusion: '"ArrayImg"', # For larger datasets use: '"[CellImg (large images)]"'
   interpolation: '"Linear Interpolation"',
   pixel_type: '"16-bit unsigned integer"',
   imglib2_data_container: '"ArrayImg (faster)"',
@@ -427,7 +430,7 @@ deconvolution: {
   process_illumination: '"All illuminations"',
   type_of_iteration: '"Efficient Bayesian - Optimization I (fast, precise)"',
   image_weights: '"Virtual weights (less memory, slower)"',
-  Tikhonov_parameter: '0.0006',
+  Tikhonov_parameter: '0.006',
   compute: '"in 512x512x512 blocks"',
   osem_acceleration: '"1 (balanced)"',
   psf_estimation: '"Extract from beads"',

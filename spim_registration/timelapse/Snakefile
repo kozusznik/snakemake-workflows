@@ -395,6 +395,7 @@ rule deconvolution:
         -Dprocess_illumination={process_illumination} \
         -Dprocess_angle={process_angle} \
 		-Dbounding_box={bounding_box} \
+		-Dallow_to_modify={allow_to_modify} \
 		-Dfused_image={fused_image} \
 		-Dbounding_box_title={bounding_box_title} \
         -Dchannels={channels} \
