@@ -43,12 +43,12 @@ System.out.println( "-------------------------------------------------------" );
 System.out.println("Bounding Box");
 bounding_box = System.getProperty( "bounding_box", "Define manually");
 bounding_box_string = "";
-if (bounding_box.equalsIgnoreCase( "Define manually" ))
+if (bounding_box.equals( "Define manually" ))
 {
 	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
 	System.out.println( "Use a manually defined Bounding Box" );
 } 
-else if (bounding_box.equalsIgnoreCase( "Use pre-defined Bounding Box" )) 
+else if (bounding_box.equals( "Use pre-defined Bounding Box" )) 
 {
 	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
 	System.out.println( "Use a pre-defined Bounding Box" );
