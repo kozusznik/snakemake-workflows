@@ -383,7 +383,6 @@ rule deconvolution:
     run:
         cmd_string = produce_string(
                 """
-                module load cuda &&
                 {fiji-prefix} {sysconfcpus} {num_cores_deco} \
                 {fiji-app} {memory-prefix}{mem_deco} \
         -Dimage_file_directory={jdir} \
@@ -394,10 +393,10 @@ rule deconvolution:
         -Dprocess_channel={process_channel} \
         -Dprocess_illumination={process_illumination} \
         -Dprocess_angle={process_angle} \
-		-Dbounding_box={bounding_box} \
-		-Dallow_to_modify={allow_to_modify} \
-		-Dfused_image={fused_image} \
-		-Dbounding_box_title={bounding_box_title} \
+        -Dbounding_box={bounding_box} \
+        -Dallow_to_modify={allow_to_modify} \
+        -Dfused_image={fused_image} \
+        -Dbounding_box_title={bounding_box_title} \
         -Dchannels={channels} \
         -Dminimal_x_deco={minimal_x_deco} \
         -Dminimal_y_deco={minimal_y_deco} \

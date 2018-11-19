@@ -439,8 +439,8 @@ deconvolution: {
   psf_size_z: '25',
   use_same_psf_for_all_channels: '"Yes"',
   transform_psfs: '"Yes"',
-  imglib2_container: '"ArrayImg"',
-  imglib2_container_ffts: '"ArrayImg"',
+  imglib2_container_deco: '"ArrayImg"',
+  imglib2_container_ffts_deco: '"ArrayImg"',
   fused_image: '"Save as TIFF stack"',
   bsh_file: "deconvolution.bsh"
   }

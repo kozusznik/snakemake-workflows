@@ -58,7 +58,6 @@ else
 	System.out.println( "Bounding Box setting bad" );
 }
 
-System.out.println("Allow to modify Bounding Box");
 allow_to_modify = System.getProperty( "allow_to_modify", "No");
 String allow_to_modify_string = "";
 if (allow_to_modify.equalsIgnoreCase( "No" ))
@@ -129,14 +128,13 @@ System.out.println( "psf_size_x = " + psf_size_x );
 System.out.println( "psf_size_y = " + psf_size_y );
 System.out.println( "psf_size_z = " + psf_size_z );
 
-System.out.println("Same PSF for all channels:");
 use_same_psf_for_all_channels = System.getProperty( "use_same_psf_for_all_channels", "No");
 String use_same_psf_for_all_channels_string = "";
-if (fix_bioformats.equalsIgnoreCase( "No" ))
+if (use_same_psf_for_all_channels.equalsIgnoreCase( "No" ))
 {
 	System.out.println( "Don't use same PSF for all channels" );
 } 
-else if (fix_bioformats.equalsIgnoreCase( "Yes" )) 
+else if (use_same_psf_for_all_channels.equalsIgnoreCase( "Yes" )) 
 {
 	use_same_psf_for_all_channels_string = "use_same_psf_for_all_channels ";
 	System.out.println( "Use same PSF for all channels" );
@@ -146,7 +144,6 @@ else
 	System.out.println( "Use same PSF for all channels setting bad" );
 }
 
-System.out.println("Transform PSFs:");
 transform_psfs = System.getProperty( "transform_psfs", "No");
 String transform_psfs_string = "";
 if (transform_psfs.equalsIgnoreCase( "No" ))
@@ -254,7 +251,7 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
 	"type_of_image_fusion=[Multi-view deconvolution] " +
 	bounding_box_string +
-	"allow_to_modify=" + allow_to_modify + " " +
+	allow_to_modify_string +
 	"fused_image=[" + fused_image + "] " +
 	"bounding_box_title=[" + bounding_box_title + "] " +
 	"minimal_x=" + minimal_x_deco + " " +
@@ -295,7 +292,7 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
 	"type_of_image_fusion=[Multi-view deconvolution] " +
 	bounding_box_string +
-	"allow_to_modify=" + allow_to_modify + " " +
+	allow_to_modify_string +
 	"fused_image=[" + fused_image + "] " +
 	"bounding_box_title=[" + bounding_box_title + "] " +
 	"minimal_x=" + minimal_x_deco + " " +
