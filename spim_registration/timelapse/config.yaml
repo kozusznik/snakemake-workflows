@@ -182,11 +182,33 @@ common: {
   maximal_y_deco: '-4709',
   maximal_z_deco: '867',
   
-  # Channel settings for deconvolution
-  # Single Channel: '"beads"'
-  # Dual Channel: '"beads,beads"'
-  # Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
+  # PSF estimation settings
+  #
+  # Description: determines whether PSFs will be extracted from beads or from a file
+  # Options: "Extract from beads"
+  #            - requires "detections_to_extract_psf_for_channel" specified as follows:
+  #               - Single Channel: '"beads"'
+  #               - Dual Channel: '"beads,beads"'
+  #               - Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
+  #            - requires "psf_size_x"
+  #            - requires "psf_size_y"
+  #            - requires "psf_size_z"
+  #          "Provide file with PSF"
+  #            - requires specified as follows:
+  #            - requires "use_same_psf_for_all_channels"
+  #               - Provided PSF files will be used for all channels: '"Yes"'
+  #               - Provided PSF files are channel-specific: '"No"'
+  #            - requires "transform_psfs"
+  #               - PSFs should be transformed: '"Yes"'
+  #               - PSFs should not be transformed: '"No"'
+  psf_estimation: '"Provide file with PSF"',
   detections_to_extract_psf_for_channel: '"nuclei-out,nuclei-out"',
+  psf_size_x: '19',
+  psf_size_y: '19',
+  psf_size_z: '25',
+  use_same_psf_for_all_channels: '"Yes"',
+  transform_psfs: '"Yes"',
+  
   # ============================================================================
   # Resave output
   #
@@ -433,12 +455,6 @@ deconvolution: {
   Tikhonov_parameter: '0.006',
   compute: '"in 512x512x512 blocks"',
   osem_acceleration: '"1 (balanced)"',
-  psf_estimation: '"Extract from beads"',
-  psf_size_x: '19',
-  psf_size_y: '19',
-  psf_size_z: '25',
-  use_same_psf_for_all_channels: '"Yes"',
-  transform_psfs: '"Yes"',
   imglib2_container_deco: '"CellImg (large images)"',
   fused_image: '"Save as TIFF stack"',
   bsh_file: "deconvolution.bsh"

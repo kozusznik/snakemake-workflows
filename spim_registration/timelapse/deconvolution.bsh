@@ -99,7 +99,6 @@ osem_acceleration = System.getProperty( "osem_acceleration" );
 Tikhonov_parameter = System.getProperty( "Tikhonov_parameter" );
 //float Tikhonov_parameter = Float.parseFloat( System.getProperty( "Tikhonov_parameter" ) );
 compute = System.getProperty( "compute" );
-psf_estimation = System.getProperty( "psf_estimation" );
 iterations = System.getProperty( "iterations" );
 deco_output_file_directory = System.getProperty( "deco_output_file_directory" );
 
@@ -112,22 +111,64 @@ System.out.println( "image_weights = " + image_weights );
 System.out.println( "osem_acceleration = " + osem_acceleration );
 System.out.println( "Tikhonov_parameter = " + Tikhonov_parameter );
 System.out.println( "compute = " + compute );
-System.out.println( "psf_estimation = " + psf_estimation );
 System.out.println( "number_of_iterations = " + iterations );
 System.out.println( "deco_output_file_directory = " + deco_output_file_directory );
 
 // PSF Parameters
 
+System.out.println( "-------------------------------------------------------" );
+System.out.println( "PSF Parameters: " );
+
+// Define the way how PSF parameters will be determined
+psf_estimation = System.getProperty( "psf_estimation", "Extract from beads" );
+psf_estimation_string = "";
+if (psf_estimation.equals( "Extract from beads" ))
+{
+	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+	System.out.println( "PSF will be extracted from beads" );
+} 
+else if (bounding_box.equals( "Provide file with PSF" )) 
+{
+	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+	System.out.println( "PSF will be extracted from the provided files" );
+} 
+else 
+{
+	System.out.println( "PSF estimation setting bad" );
+}
+
+// Extracting PSF parameters from beads - channel settings
+// 1. parse channels
+channels = System.getProperty( "channels" );
+System.out.println( "Channels: " + channels );
+// 2. parse detections_to_extract_psf_for_channel
+detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
+System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
+// 3. split channels and detections_to_extract_psf_for_channel
+String delims = "[,]";
+String[] channel_token = channels.split(delims);
+String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
+// 4. assemble channel_string
+StringBuilder channel_string = new StringBuilder();
+for (int channel=0; channel < channel_token.length; channel++ )
+{
+	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
+	channel_string.append( channel_part );
+	channel_string.append(" ");
+}
+System.out.println( channel_string );
+
+// Extracting PSF parameters from beads - PSF size settings
 psf_size_x = System.getProperty( "psf_size_x" );
 psf_size_y = System.getProperty( "psf_size_y" );
 psf_size_z = System.getProperty( "psf_size_z" );
-
-System.out.println( "-------------------------------------------------------" );
-System.out.println( "PSF Parameters: " );
 System.out.println( "psf_size_x = " + psf_size_x );
 System.out.println( "psf_size_y = " + psf_size_y );
 System.out.println( "psf_size_z = " + psf_size_z );
 
+// Extracting PSF parameters from provided files - list of files
+
+// Extracting PSF parameters from provided files - use_same_psf_for_all_channels flag
 use_same_psf_for_all_channels = System.getProperty( "use_same_psf_for_all_channels", "No");
 String use_same_psf_for_all_channels_string = "";
 if (use_same_psf_for_all_channels.equalsIgnoreCase( "No" ))
@@ -144,6 +185,7 @@ else
 	System.out.println( "Use same PSF for all channels setting bad" );
 }
 
+// Extracting PSF parameters from provided files - transform_psfs flag
 transform_psfs = System.getProperty( "transform_psfs", "No");
 String transform_psfs_string = "";
 if (transform_psfs.equalsIgnoreCase( "No" ))
@@ -159,37 +201,6 @@ else
 {
 	System.out.println( "Transform PSFs setting bad" );
 }
-
-
-// Channel settings
-System.out.println( "-------------------------------------------------------" );
-System.out.println( "Channel Settings: " );
-// Channel setting for Deconvolution
-// parses channels and takes from there the number of channels
-// parses detections_to_extract_psf_for_channel
-channels = System.getProperty( "channels" );
-System.out.println( "Channels = " + channels );
-
-detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
-System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
-
-// Splits channels and detections_to_extract_psf_for_channel
-String delims = "[,]";
-String[] channel_token = channels.split(delims);
-String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
-
-// Assembles channel_string
-StringBuilder channel_string = new StringBuilder();
-
-for (int channel=0; channel < channel_token.length; channel++ )
-
-{
-	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
-	channel_string.append( channel_part );
-	channel_string.append(" ");
-}
-
-System.out.println( channel_string );
 
 // GPU/CPU setting
 System.out.println( "-------------------------------------------------------" );
@@ -260,6 +271,14 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"maximal_x=" + maximal_x_deco + " " +
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
+	"psf_estimation=[" + psf_estimation + "] " +
+	"psf_display=[Do not show PSFs] " +
+	channel_string +
+	"psf_size_x=" + psf_size_x + " " +
+	"psf_size_y=" + psf_size_y + " " +
+	"psf_size_z=" + psf_size_z + " " +
+	use_same_psf_for_all_channels_string +
+	transform_psfs_string +
 	"imglib2_container=[" + imglib2_container + "] " +
 	"imglib2_container_ffts=[" + imglib2_container_ffts + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
@@ -271,16 +290,8 @@ System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory 
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +
 	compute_string +
-	"psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
 	"select=" + image_file_directory + output_xml + " " +
-	cuda_settings +
-	channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
-	use_same_psf_for_all_channels_string +
-	transform_psfs_string);
+	cuda_settings);
 
 try {
 IJ.run("Fuse/Deconvolve Dataset", 
@@ -301,6 +312,14 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"maximal_x=" + maximal_x_deco + " " +
 	"maximal_y=" + maximal_y_deco + " " +
 	"maximal_z=" + maximal_z_deco + " " +
+	"psf_estimation=[" + psf_estimation + "] " +
+	"psf_display=[Do not show PSFs] " +
+	channel_string +
+	"psf_size_x=" + psf_size_x + " " +
+	"psf_size_y=" + psf_size_y + " " +
+	"psf_size_z=" + psf_size_z + " " +
+	use_same_psf_for_all_channels_string +
+	transform_psfs_string +
 	"imglib2_container=[" + imglib2_container_deco + "] " +
 	"imglib2_container_ffts=[" + imglib2_container_deco + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
@@ -312,17 +331,9 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +
 	compute_string +
-	"psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
 	"output_file_directory=" + image_file_directory + " " +
 	//"select=" + image_file_directory + output_xml + " " +
-	cuda_settings +
-	channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
-	use_same_psf_for_all_channels_string +
-	transform_psfs_string);
+	cuda_settings);
 }
 catch ( e ) {
 
