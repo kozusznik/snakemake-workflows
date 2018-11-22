@@ -409,8 +409,8 @@ rule deconvolution:
         -Dpsf_size_x={psf_size_x} \
         -Dpsf_size_y={psf_size_y} \
         -Dpsf_size_z={psf_size_z} \
-		-Duse_same_psf_for_all_channels={use_same_psf_for_all_channels} \
-		-Dtransform_psfs={transform_psfs} \
+        -Duse_same_psf_for_all_channels={use_same_psf_for_all_channels} \
+        -Dtransform_psfs={transform_psfs} \
         -Dimglib2_container_deco={imglib2_container_deco} \
         -Dtype_of_iteration={type_of_iteration} \
 		-Dimage_weights={image_weights} \
