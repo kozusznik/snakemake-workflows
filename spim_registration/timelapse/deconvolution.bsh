@@ -127,7 +127,7 @@ if (psf_estimation.equals( "Extract from beads" ))
 	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
 	System.out.println( "PSF will be extracted from beads" );
 } 
-else if (bounding_box.equals( "Provide file with PSF" )) 
+else if (psf_estimation.equals( "Provide file with PSF" )) 
 {
 	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
 	System.out.println( "PSF will be extracted from the provided files" );
