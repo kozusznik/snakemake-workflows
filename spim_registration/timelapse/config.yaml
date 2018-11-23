@@ -172,15 +172,15 @@ common: {
   #            - requires "bounding_box_title"
   #          "Define manually"
   #            - requires particular coordinates to be set
-  bounding_box: '"Use pre-defined Bounding Box"',
-  bounding_box_title: '"My Bounding Box"',
-  allow_to_modify: '"No"',
-  minimal_x_deco: '1728',  # Cropping parameters: take downsampling into account
-  minimal_y_deco: '-5696',
-  minimal_z_deco: '-784',
-  maximal_x_deco: '3118',
-  maximal_y_deco: '-4709',
-  maximal_z_deco: '867',
+  #bounding_box: '"Use pre-defined Bounding Box"',
+  #bounding_box_title: '"My Bounding Box"',
+  #allow_to_modify: '"No"',
+  #minimal_x_deco: '1728',  # Cropping parameters: take downsampling into account
+  #minimal_y_deco: '-5696',
+  #minimal_z_deco: '-784',
+  #maximal_x_deco: '3118',
+  #maximal_y_deco: '-4709',
+  #maximal_z_deco: '867',
   
   # PSF estimation settings
   #
@@ -201,13 +201,13 @@ common: {
   #            - requires "transform_psfs"
   #               - PSFs should be transformed: '"Yes"'
   #               - PSFs should not be transformed: '"No"'
-  psf_estimation: '"Provide file with PSF"',
-  detections_to_extract_psf_for_channel: '"nuclei-out,nuclei-out"',
-  psf_size_x: '19',
-  psf_size_y: '19',
-  psf_size_z: '25',
-  use_same_psf_for_all_channels: '"Yes"',
-  transform_psfs: '"Yes"',
+  #psf_estimation: '"Provide file with PSF"',
+  #detections_to_extract_psf_for_channel: '"nuclei-out,nuclei-out"',
+  #psf_size_x: '19',
+  #psf_size_y: '19',
+  #psf_size_z: '25',
+  #use_same_psf_for_all_channels: '"Yes"',
+  #transform_psfs: '"Yes"',
   
   # ============================================================================
   # Resave output
@@ -450,13 +450,18 @@ deconvolution: {
   process_angle: '"All angles"',
   process_channel: '"All channels"',
   process_illumination: '"All illuminations"',
+  downsample_deco: '16',
+  input: '"Cached"',
+  weight: '"Cached"',
+  initialize_with: '"Blurred, fused image (suggested, higher compute effort)"',
   type_of_iteration: '"Efficient Bayesian - Optimization I (fast, precise)"',
-  image_weights: '"Virtual weights (less memory, slower)"',
   Tikhonov_parameter: '0.006',
   compute: '"in 512x512x512 blocks"',
-  osem_acceleration: '"1 (balanced)"',
-  imglib2_container_deco: '"CellImg (large images)"',
-  fused_image: '"Save as TIFF stack"',
+  fast_sequential_iterations: '"Yes"',
+  osem_acceleration: '1',
+  # imglib2_container_deco: '"CellImg (large images)"',
+  produce: '"Each timepoint & channel"',
+  fused_image: '"Save as (compressed) TIFF stacks"',
   bsh_file: "deconvolution.bsh"
   }
   

@@ -20,7 +20,7 @@ if ( ! merged_xml.endsWith(".xml") )
 
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Load xml file: " );
-System.out.println( "selected_xml = " + image_file_directory + merged_xml + ".xml");
+System.out.println( "selected = " + image_file_directory + merged_xml + ".xml");
 
 // Load general Parameters
 int parallel_timepoints = Integer.parseInt(System.getProperty( "parallel_timepoints" ));
@@ -38,169 +38,203 @@ System.out.println( "process_illumination = " + process_illumination );
 System.out.println( "process_angle = " + process_angle );
 
 // Load bounding box
+//
+//System.out.println( "-------------------------------------------------------" );
+//System.out.println("Bounding Box");
+//bounding_box = System.getProperty( "bounding_box", "Define manually");
+//bounding_box_string = "";
+//if (bounding_box.equals( "Define manually" ))
+//{
+//	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
+//	System.out.println( "Use a manually defined Bounding Box" );
+//} 
+//else if (bounding_box.equals( "Use pre-defined Bounding Box" )) 
+//{
+//	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
+//	System.out.println( "Use a pre-defined Bounding Box" );
+//} 
+//else 
+//{
+//	System.out.println( "Bounding Box setting bad" );
+//}
+//
+//allow_to_modify = System.getProperty( "allow_to_modify", "No");
+//String allow_to_modify_string = "";
+//if (allow_to_modify.equalsIgnoreCase( "No" ))
+//{
+//	System.out.println( "Don't allow to modify Bounding Box" );
+//} 
+//else if (allow_to_modify.equalsIgnoreCase( "Yes" )) 
+//{
+//	allow_to_modify_string = "allow_to_modify ";
+//	System.out.println( "Allow to modify Bounding Box" );
+//} 
+//else 
+//{
+//	System.out.println( "Allow to modify Bounding Box setting bad" );
+//}
+//
+//bounding_box_title = System.getProperty( "bounding_box_title" );
+//minimal_x_deco = System.getProperty( "minimal_x_deco" );
+//minimal_y_deco = System.getProperty( "minimal_y_deco" );
+//minimal_z_deco = System.getProperty( "minimal_z_deco" );
+//maximal_x_deco = System.getProperty( "maximal_x_deco" );
+//maximal_y_deco = System.getProperty( "maximal_y_deco" );
+//maximal_z_deco = System.getProperty( "maximal_z_deco" );
 
-System.out.println( "-------------------------------------------------------" );
-System.out.println("Bounding Box");
-bounding_box = System.getProperty( "bounding_box", "Define manually");
-bounding_box_string = "";
-if (bounding_box.equals( "Define manually" ))
-{
-	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
-	System.out.println( "Use a manually defined Bounding Box" );
-} 
-else if (bounding_box.equals( "Use pre-defined Bounding Box" )) 
-{
-	bounding_box_string = "bounding_box=[" + bounding_box + "] ";
-	System.out.println( "Use a pre-defined Bounding Box" );
-} 
-else 
-{
-	System.out.println( "Bounding Box setting bad" );
-}
-
-allow_to_modify = System.getProperty( "allow_to_modify", "No");
-String allow_to_modify_string = "";
-if (allow_to_modify.equalsIgnoreCase( "No" ))
-{
-	System.out.println( "Don't allow to modify Bounding Box" );
-} 
-else if (allow_to_modify.equalsIgnoreCase( "Yes" )) 
-{
-	allow_to_modify_string = "allow_to_modify ";
-	System.out.println( "Allow to modify Bounding Box" );
-} 
-else 
-{
-	System.out.println( "Allow to modify Bounding Box setting bad" );
-}
-
-bounding_box_title = System.getProperty( "bounding_box_title" );
-minimal_x_deco = System.getProperty( "minimal_x_deco" );
-minimal_y_deco = System.getProperty( "minimal_y_deco" );
-minimal_z_deco = System.getProperty( "minimal_z_deco" );
-maximal_x_deco = System.getProperty( "maximal_x_deco" );
-maximal_y_deco = System.getProperty( "maximal_y_deco" );
-maximal_z_deco = System.getProperty( "maximal_z_deco" );
-
-System.out.println( "bounding_box_title = " + bounding_box_title );
-System.out.println( "minimal_x_deco = " + minimal_x_deco );
-System.out.println( "minimal_y_deco = " + minimal_y_deco );
-System.out.println( "minimal_z_deco = " + minimal_z_deco );
-System.out.println( "maximal_x_deco = " + maximal_x_deco );
-System.out.println( "maximal_y_deco = " + maximal_y_deco );
-System.out.println( "maximal_z_deco = " + maximal_z_deco );
+//System.out.println( "bounding_box_title = " + bounding_box_title );
+//System.out.println( "minimal_x_deco = " + minimal_x_deco );
+//System.out.println( "minimal_y_deco = " + minimal_y_deco );
+//System.out.println( "minimal_z_deco = " + minimal_z_deco );
+//System.out.println( "maximal_x_deco = " + maximal_x_deco );
+//System.out.println( "maximal_y_deco = " + maximal_y_deco );
+//System.out.println( "maximal_z_deco = " + maximal_z_deco );
 
 // Load deconvolution Parameters
-imglib2_container = System.getProperty( "imglib2_container_deco" );
-imglib2_container_ffts = System.getProperty( "imglib2_container_deco" );
-type_of_iteration = System.getProperty( "type_of_iteration" );
-image_weights = System.getProperty( "image_weights" );
-osem_acceleration = System.getProperty( "osem_acceleration" );
-Tikhonov_parameter = System.getProperty( "Tikhonov_parameter" );
-//float Tikhonov_parameter = Float.parseFloat( System.getProperty( "Tikhonov_parameter" ) );
-compute = System.getProperty( "compute" );
-iterations = System.getProperty( "iterations" );
-deco_output_file_directory = System.getProperty( "deco_output_file_directory" );
 
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Deconvolution settings: " );
-System.out.println( "imglib2_container = " + imglib2_container );
-System.out.println( "imglib2_container_ffts = " + imglib2_container_ffts );
+
+//imglib2_container = System.getProperty( "imglib2_container_deco" );
+//System.out.println( "imglib2_container = " + imglib2_container );
+
+//imglib2_container_ffts = System.getProperty( "imglib2_container_deco" );
+//System.out.println( "imglib2_container_ffts = " + imglib2_container_ffts );
+
+downsampling = System.getProperty( "downsample_deco" );
+System.out.println( "downsampling = " + downsampling );
+
+input = System.getProperty( "input" );
+System.out.println( "input = " + input );
+
+weight = System.getProperty( "weight" );
+System.out.println( "weight = " + weight );
+
+initialize_with = System.getProperty( "initialize_with" );
+System.out.println( "initialize_with = " + initialize_with );
+
+type_of_iteration = System.getProperty( "type_of_iteration" );
 System.out.println( "type_of_iteration = " + type_of_iteration );
-System.out.println( "image_weights = " + image_weights );
+
+fast_sequential_iterations = System.getProperty( "fast_sequential_iterations", "No");
+String fast_sequential_iterations_string = "";
+if (fast_sequential_iterations.equalsIgnoreCase( "No" ))
+{
+	System.out.println( "Don't do fast sequential iterations" );
+} 
+else if (fast_sequential_iterations.equalsIgnoreCase( "Yes" )) 
+{
+	fast_sequential_iterations_string = "fast_sequential_iterations ";
+	System.out.println( "Perform fast sequential iterations" );
+} 
+else 
+{
+	System.out.println( "Fast sequential iterations setting bad" );
+}
+
+osem_acceleration = System.getProperty( "osem_acceleration" );
 System.out.println( "osem_acceleration = " + osem_acceleration );
+
+Tikhonov_parameter = System.getProperty( "Tikhonov_parameter" );
+//float Tikhonov_parameter = Float.parseFloat( System.getProperty( "Tikhonov_parameter" ) );
 System.out.println( "Tikhonov_parameter = " + Tikhonov_parameter );
+
+compute = System.getProperty( "compute" );
 System.out.println( "compute = " + compute );
+
+iterations = System.getProperty( "iterations" );
 System.out.println( "number_of_iterations = " + iterations );
+
+deco_output_file_directory = System.getProperty( "deco_output_file_directory" );
 System.out.println( "deco_output_file_directory = " + deco_output_file_directory );
 
 // PSF Parameters
 
-System.out.println( "-------------------------------------------------------" );
-System.out.println( "PSF Parameters: " );
-
-// Define the way how PSF parameters will be determined
-psf_estimation = System.getProperty( "psf_estimation", "Extract from beads" );
-psf_estimation_string = "";
-if (psf_estimation.equals( "Extract from beads" ))
-{
-	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
-	System.out.println( "PSF will be extracted from beads" );
-} 
-else if (psf_estimation.equals( "Provide file with PSF" )) 
-{
-	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
-	System.out.println( "PSF will be extracted from the provided files" );
-} 
-else 
-{
-	System.out.println( "PSF estimation setting bad" );
-}
-
-// Extracting PSF parameters from beads - channel settings
-// 1. parse channels
-channels = System.getProperty( "channels" );
-System.out.println( "Channels: " + channels );
-// 2. parse detections_to_extract_psf_for_channel
-detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
-System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
-// 3. split channels and detections_to_extract_psf_for_channel
-String delims = "[,]";
-String[] channel_token = channels.split(delims);
-String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
-// 4. assemble channel_string
-StringBuilder channel_string = new StringBuilder();
-for (int channel=0; channel < channel_token.length; channel++ )
-{
-	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
-	channel_string.append( channel_part );
-	channel_string.append(" ");
-}
-System.out.println( channel_string );
-
-// Extracting PSF parameters from beads - PSF size settings
-psf_size_x = System.getProperty( "psf_size_x" );
-psf_size_y = System.getProperty( "psf_size_y" );
-psf_size_z = System.getProperty( "psf_size_z" );
-System.out.println( "psf_size_x = " + psf_size_x );
-System.out.println( "psf_size_y = " + psf_size_y );
-System.out.println( "psf_size_z = " + psf_size_z );
-
-// Extracting PSF parameters from provided files - list of files
-
-// Extracting PSF parameters from provided files - use_same_psf_for_all_channels flag
-use_same_psf_for_all_channels = System.getProperty( "use_same_psf_for_all_channels", "No");
-String use_same_psf_for_all_channels_string = "";
-if (use_same_psf_for_all_channels.equalsIgnoreCase( "No" ))
-{
-	System.out.println( "Don't use same PSF for all channels" );
-} 
-else if (use_same_psf_for_all_channels.equalsIgnoreCase( "Yes" )) 
-{
-	use_same_psf_for_all_channels_string = "use_same_psf_for_all_channels ";
-	System.out.println( "Use same PSF for all channels" );
-} 
-else 
-{
-	System.out.println( "Use same PSF for all channels setting bad" );
-}
-
-// Extracting PSF parameters from provided files - transform_psfs flag
-transform_psfs = System.getProperty( "transform_psfs", "No");
-String transform_psfs_string = "";
-if (transform_psfs.equalsIgnoreCase( "No" ))
-{
-	System.out.println( "Don't transform PSFs" );
-} 
-else if (transform_psfs.equalsIgnoreCase( "Yes" )) 
-{
-	transform_psfs_string = "transform_psfs ";
-	System.out.println( "Transform PSFs" );
-} 
-else 
-{
-	System.out.println( "Transform PSFs setting bad" );
-}
+//System.out.println( "-------------------------------------------------------" );
+//System.out.println( "PSF Parameters: " );
+//
+//// Define the way how PSF parameters will be determined
+//psf_estimation = System.getProperty( "psf_estimation", "Extract from beads" );
+//psf_estimation_string = "";
+//if (psf_estimation.equals( "Extract from beads" ))
+//{
+//	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+//	System.out.println( "PSF will be extracted from beads" );
+//} 
+//else if (psf_estimation.equals( "Provide file with PSF" )) 
+//{
+//	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+//	System.out.println( "PSF will be extracted from the provided files" );
+//} 
+//else 
+//{
+//	System.out.println( "PSF estimation setting bad" );
+//}
+//
+//// Extracting PSF parameters from beads - channel settings
+//// 1. parse channels
+//channels = System.getProperty( "channels" );
+//System.out.println( "Channels: " + channels );
+//// 2. parse detections_to_extract_psf_for_channel
+//detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
+//System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
+//// 3. split channels and detections_to_extract_psf_for_channel
+//String delims = "[,]";
+//String[] channel_token = channels.split(delims);
+//String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
+//// 4. assemble channel_string
+//StringBuilder channel_string = new StringBuilder();
+//for (int channel=0; channel < channel_token.length; channel++ )
+//{
+//	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
+//	channel_string.append( channel_part );
+//	channel_string.append(" ");
+//}
+//System.out.println( channel_string );
+//
+//// Extracting PSF parameters from beads - PSF size settings
+//psf_size_x = System.getProperty( "psf_size_x" );
+//psf_size_y = System.getProperty( "psf_size_y" );
+//psf_size_z = System.getProperty( "psf_size_z" );
+//System.out.println( "psf_size_x = " + psf_size_x );
+//System.out.println( "psf_size_y = " + psf_size_y );
+//System.out.println( "psf_size_z = " + psf_size_z );
+//
+//// Extracting PSF parameters from provided files - list of files
+//
+//// Extracting PSF parameters from provided files - use_same_psf_for_all_channels flag
+//use_same_psf_for_all_channels = System.getProperty( "use_same_psf_for_all_channels", "No");
+//String use_same_psf_for_all_channels_string = "";
+//if (use_same_psf_for_all_channels.equalsIgnoreCase( "No" ))
+//{
+//	System.out.println( "Don't use same PSF for all channels" );
+//} 
+//else if (use_same_psf_for_all_channels.equalsIgnoreCase( "Yes" )) 
+//{
+//	use_same_psf_for_all_channels_string = "use_same_psf_for_all_channels ";
+//	System.out.println( "Use same PSF for all channels" );
+//} 
+//else 
+//{
+//	System.out.println( "Use same PSF for all channels setting bad" );
+//}
+//
+//// Extracting PSF parameters from provided files - transform_psfs flag
+//transform_psfs = System.getProperty( "transform_psfs", "No");
+//String transform_psfs_string = "";
+//if (transform_psfs.equalsIgnoreCase( "No" ))
+//{
+//	System.out.println( "Don't transform PSFs" );
+//} 
+//else if (transform_psfs.equalsIgnoreCase( "Yes" )) 
+//{
+//	transform_psfs_string = "transform_psfs ";
+//	System.out.println( "Transform PSFs" );
+//} 
+//else 
+//{
+//	System.out.println( "Transform PSFs setting bad" );
+//}
 
 // GPU/CPU setting
 System.out.println( "-------------------------------------------------------" );
@@ -242,97 +276,113 @@ else
 System.out.println( "compute_string=" + compute_string );
 
 // Saving settings
+
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Saving settings: " );
+
 fused_image = System.getProperty( "fused_image" );
 System.out.println( "fused_image=" + fused_image );
 
-output_xml = System.getProperty( "output_xml" );
-System.out.println( "output_xml" );
+produce = System.getProperty( "produce" );
+System.out.println( "produce=" + produce );
+
+//output_xml = System.getProperty( "output_xml" );
+//System.out.println( "output_xml" );
 
 
 // Execute Fiji Plugin
 System.out.println( "=======================================================" );
 System.out.println( "Starting Deconvolution" );
-System.out.println("Fuse/Deconvolve Dataset select_xml=" + image_file_directory + merged_xml + " " + 
+System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " " + 
 	"process_angle=[All angles] " +
 	"process_channel=[All channels] " + 
 	"process_illumination=[All illuminations] " +
+	"process_tile=[All tiles] " +
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-	"type_of_image_fusion=[Multi-view deconvolution] " +
-	bounding_box_string +
-	allow_to_modify_string +
-	"fused_image=[" + fused_image + "] " +
-	"bounding_box_title=[" + bounding_box_title + "] " +
-	"minimal_x=" + minimal_x_deco + " " +
-	"minimal_y=" + minimal_y_deco + " " +
-	"minimal_z=" + minimal_z_deco + " " +
-	"maximal_x=" + maximal_x_deco + " " +
-	"maximal_y=" + maximal_y_deco + " " +
-	"maximal_z=" + maximal_z_deco + " " +
-	"psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
-	channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
-	use_same_psf_for_all_channels_string +
-	transform_psfs_string +
-	"imglib2_container=[" + imglib2_container + "] " +
-	"imglib2_container_ffts=[" + imglib2_container_ffts + "] " +
+//  "type_of_image_fusion=[Multi-view deconvolution] " +
+//  bounding_box_string +
+//	allow_to_modify_string +
+//	"bounding_box_title=[" + bounding_box_title + "] " +
+//	"minimal_x=" + minimal_x_deco + " " +
+//	"minimal_y=" + minimal_y_deco + " " +
+//	"minimal_z=" + minimal_z_deco + " " +
+//	"maximal_x=" + maximal_x_deco + " " +
+//	"maximal_y=" + maximal_y_deco + " " +
+//	"maximal_z=" + maximal_z_deco + " " +
+//  "psf_estimation=[" + psf_estimation + "] " +
+//	"psf_display=[Do not show PSFs] " +
+//	channel_string +
+//	"psf_size_x=" + psf_size_x + " " +
+//	"psf_size_y=" + psf_size_y + " " +
+//	"psf_size_z=" + psf_size_z + " " +
+//	use_same_psf_for_all_channels_string +
+//	transform_psfs_string +
+//  "imglib2_container=[" + imglib2_container + "] " +
+//	"imglib2_container_ffts=[" + imglib2_container_ffts + "] " +
+    "downsampling=" + downsampling + " " +
+    "input=" + input + " " +
+	"weight=" + weight + " " +
+    "initialize_with=[" + downsampling + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
-	"image_weights=[" + image_weights + "] " +
-	"osem_acceleration=[" + osem_acceleration + "] " +
+	fast_sequential_iterations_string +
+	"osem_acceleration=" + osem_acceleration + " " +
 	"number_of_iterations=" + iterations + " " +
 //	"adjust_blending_parameters " +
 	"use_tikhonov_regularization " +
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +
 	compute_string +
-	"select=" + image_file_directory + output_xml + " " +
+	"produce=[" + produce + "] " +
+	"fused_image=[" + fused_image + "] " +
+	"output_file_directory=" + image_file_directory + " " +
 	cuda_settings);
 
 try {
-IJ.run("Fuse/Deconvolve Dataset", 
-	"select_xml=" + image_file_directory + merged_xml + " " + 
+IJ.run("Deconvolve", 
+	"select=" + image_file_directory + merged_xml + " " + 
 	"process_angle=[All angles] " +
 	"process_channel=[All channels] " + 
 	"process_illumination=[All illuminations] " +
+	"process_tile=[All tiles] " +
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-	"type_of_image_fusion=[Multi-view deconvolution] " +
-	bounding_box_string +
-	allow_to_modify_string +
-	"fused_image=[" + fused_image + "] " +
-	"bounding_box_title=[" + bounding_box_title + "] " +
-	"minimal_x=" + minimal_x_deco + " " +
-	"minimal_y=" + minimal_y_deco + " " +
-	"minimal_z=" + minimal_z_deco + " " +
-	"maximal_x=" + maximal_x_deco + " " +
-	"maximal_y=" + maximal_y_deco + " " +
-	"maximal_z=" + maximal_z_deco + " " +
-	"psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
-	channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
-	use_same_psf_for_all_channels_string +
-	transform_psfs_string +
-	"imglib2_container=[" + imglib2_container_deco + "] " +
-	"imglib2_container_ffts=[" + imglib2_container_deco + "] " +
+//	"type_of_image_fusion=[Multi-view deconvolution] " +
+//  bounding_box_string +
+//	allow_to_modify_string +
+//	"bounding_box_title=[" + bounding_box_title + "] " +
+//	"minimal_x=" + minimal_x_deco + " " +
+//	"minimal_y=" + minimal_y_deco + " " +
+//	"minimal_z=" + minimal_z_deco + " " +
+//	"maximal_x=" + maximal_x_deco + " " +
+//	"maximal_y=" + maximal_y_deco + " " +
+//	"maximal_z=" + maximal_z_deco + " " +
+//	"psf_estimation=[" + psf_estimation + "] " +
+//	"psf_display=[Do not show PSFs] " +
+//  channel_string +
+//	"psf_size_x=" + psf_size_x + " " +
+//	"psf_size_y=" + psf_size_y + " " +
+//	"psf_size_z=" + psf_size_z + " " +
+//	use_same_psf_for_all_channels_string +
+//	transform_psfs_string +
+//	"imglib2_container=[" + imglib2_container_deco + "] " +
+//  "imglib2_container_ffts=[" + imglib2_container_deco + "] " +
+    "downsampling=" + downsampling + " " +
+    "input=" + input + " " +
+	"weight=" + weight + " " +
+    "initialize_with=[" + initialize_with + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
-	"image_weights=[" + image_weights + "] " +
-	"osem_acceleration=[" + osem_acceleration + "] " +
+	fast_sequential_iterations_string +
+	"osem_acceleration=" + osem_acceleration + " " +
 	"number_of_iterations=" + iterations + " " +
 //	"adjust_blending_parameters " +
 	"use_tikhonov_regularization " +
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +
 	compute_string +
+	"produce=[" + produce + "] " +
+	"fused_image=[" + fused_image + "] " +
 	"output_file_directory=" + image_file_directory + " " +
-	//"select=" + image_file_directory + output_xml + " " +
 	cuda_settings);
 }
 catch ( e ) {
