@@ -150,11 +150,11 @@ common: {
   #
   #          Matrix for downsampling
   # ----------------------------------------------------------------------------
-  external_trafo_switch: "_external_trafo",
-  #external_trafo_switch: "",
+  #external_trafo_switch: "_transform",
+  external_trafo_switch: "",
   #
   # Matrix for downsampling
-  matrix_transform: '"0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0"',
+  #matrix_transform: '"0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0"',
   #
   # 6.2. Deconvolution settings ------------------------------------------------
   # 
@@ -450,7 +450,7 @@ deconvolution: {
   process_angle: '"All angles"',
   process_channel: '"All channels"',
   process_illumination: '"All illuminations"',
-  downsample_deco: '16',
+  downsample_deco: '2',
   input: '"Cached"',
   weight: '"Cached"',
   initialize_with: '"Blurred, fused image (suggested, higher compute effort)"',
