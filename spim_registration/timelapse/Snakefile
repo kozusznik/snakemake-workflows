@@ -390,9 +390,6 @@ rule deconvolution:
         -Dmerged_xml={merged_xml_file} \
         -Dparallel_timepoints={file_id_w} \
         -Dprocess_timepoint={process_timepoint} \
-        -Dprocess_channel={process_channel} \
-        -Dprocess_illumination={process_illumination} \
-        -Dprocess_angle={process_angle} \
         -Dchannels={channels} \
         -Ddownsample_deco={downsample_deco} \
 		-Dinput={input} \
@@ -420,6 +417,9 @@ rule deconvolution:
         cmd_string += " > {log} 2>&1 && touch {output}"
         shell(cmd_string)
 		
+#-Dprocess_channel={process_channel} \
+#-Dprocess_illumination={process_illumination} \
+#-Dprocess_angle={process_angle} \		
 #-Dbounding_box={bounding_box} \
 #-Dallow_to_modify={allow_to_modify} \
 #-Dbounding_box_title={bounding_box_title} \

@@ -447,9 +447,9 @@ deconvolution: {
   cudafourierconvolution: "libFourierConvolutionCUDALib.so", # GPU processing name of cuda library
   # Standard settings for deconvolution
   process_timepoint: '"Single Timepoint (Select from List)"',
-  process_angle: '"All angles"',
-  process_channel: '"All channels"',
-  process_illumination: '"All illuminations"',
+  #process_angle: '"All angles"',
+  #process_channel: '"All channels"',
+  #process_illumination: '"All illuminations"',
   downsample_deco: '2',
   input: '"Cached"',
   weight: '"Cached"',
