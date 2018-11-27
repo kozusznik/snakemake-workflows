@@ -1,3 +1,4 @@
+// Load Fiji dependencies
 import ij.IJ; 		// calls imagej
 import ij.Prefs; 	// calls imagej settings
 import ij.ImagePlus;
@@ -37,19 +38,6 @@ System.out.println( "multiple_illumination_directions = " + multiple_illuminatio
 System.out.println( "multiple_angles = " + multiple_angles );
 System.out.println( "imglib_container = " + imglib_container );
 
-// Calibaration
-System.out.println("=========================================================");
-System.out.println("Calibration:");
-float pixel_distance_x = Float.parseFloat( System.getProperty( "pixel_distance_x" ) );
-float pixel_distance_y = Float.parseFloat( System.getProperty( "pixel_distance_y" ) );
-float pixel_distance_z = Float.parseFloat( System.getProperty( "pixel_distance_z" ) );
-pixel_unit = System.getProperty( "pixel_unit" );
-
-System.out.println( "pixel_distance_x = " + pixel_distance_x );
-System.out.println( "pixel_distance_y = " + pixel_distance_y );
-System.out.println( "pixel_distance_z = " + pixel_distance_z );
-System.out.println( "pixel_unit = " + pixel_unit );
-
 // Channel switch
 System.out.println("=========================================================");
 System.out.println("Channel Switch:");
@@ -86,7 +74,7 @@ else {
 
 System.out.println( "multiple_channels = " + multiple_channels );
 
-// Calibaration
+// Calibration
 System.out.println("=========================================================");
 System.out.println("Calibration:");
 manual_calibration_output = System.getProperty( "manual_calibration_output" );
@@ -95,24 +83,30 @@ float pixel_distance_y = Float.parseFloat( System.getProperty( "pixel_distance_y
 float pixel_distance_z = Float.parseFloat( System.getProperty( "pixel_distance_z" ) );
 pixel_unit = System.getProperty( "pixel_unit" );
 
+System.out.println( "pixel_distance_x = " + pixel_distance_x );
+System.out.println( "pixel_distance_y = " + pixel_distance_y );
+System.out.println( "pixel_distance_z = " + pixel_distance_z );
+System.out.println( "pixel_unit = " + pixel_unit );
+
 // builds string for calibration override
+modify_calibration_string = " ";
+manual_calibration_string = " ";
 if (manual_calibration_output.equalsIgnoreCase( "No" ) )
 {
-	modify_calibration = "calibration_definition=[Load voxel-size(s) from file(s)] ";
-	manual_calibration_string = "";
-	System.out.println( modify_calibration );
+	modify_calibration_string = "calibration_definition=[Load voxel-size(s) from file(s)] ";
+	System.out.println( modify_calibration_string );
 }
 
 else if (manual_calibration_output.equalsIgnoreCase( "Yes" ) )
 {
 	
-	modify_calibration = "calibration_definition=[User define voxel-size(s)] ";
+	modify_calibration_string = "calibration_definition=[User define voxel-size(s)] ";
 	manual_calibration_string = " pixel_distance_x=" + pixel_distance_x + " " +
 				    "pixel_distance_y=" + pixel_distance_y + " " +
 				    "pixel_distance_z=" + pixel_distance_z + " " +
 				    "pixel_unit=" + pixel_unit + " ";
 	System.out.println( "Calibration set to manual" );
-	System.out.println( modify_calibration );
+	System.out.println( modify_calibration_string );
 	System.out.println( "manual_calibration_string:" + manual_calibration_string );
 }
 
@@ -202,7 +196,7 @@ System.out.println("Define Multi-View Dataset , type_of_dataset=[" + type_of_dat
 	"timepoints_=" + timepoints + " " +
 	channels +
 	"calibration_type=[Same voxel-size for all views] " +
-	modify_calibration + 
+	modify_calibration_string + 
 	"imglib2_data_container=[" + imglib_container + "] " + 
 	manual_calibration_string +
 	"");
@@ -221,7 +215,7 @@ IJ.run("Define Multi-View Dataset",
 	"timepoints_=" + timepoints + " " +
 	channels +
 	"calibration_type=[Same voxel-size for all views] " +
-	modify_calibration + 
+	modify_calibration_string + 
 	"imglib2_data_container=[" + imglib_container + "] " + 
 	manual_calibration_string +
 	"");
