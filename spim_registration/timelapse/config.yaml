@@ -340,6 +340,7 @@ resave_hdf5: {
   resave_angle: '"[Single channel (Select from List)] processing_channel=[488]"',
   resave_channel: '"0"',
   resave_illumination: '"All illuminations"',
+  resave_tile: '"All tiles"',
   bsh_file: "export.bsh"
   }
   

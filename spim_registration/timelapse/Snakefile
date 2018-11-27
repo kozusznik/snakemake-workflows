@@ -490,6 +490,7 @@ rule hdf5_xml_output:
                 -Dresave_channel={resave_channel} \
                 -Dresave_illumination={resave_illumination} \
                 -Dresave_timepoint={resave_timepoint} \
+				-Dresave_tile={resave_tile} \
                 -Dsubsampling_factors={subsampling_output} \
                 -Dhdf5_chunk_sizes={chunk_sizes_output} \
                 -Dtimepoints_per_partition={timepoints_per_partition} \
