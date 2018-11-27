@@ -9,6 +9,8 @@ import java.io.FilenameFilter;
 runtime = Runtime.getRuntime();
 System.out.println(runtime.availableProcessors() + " cores available for multi-threading");
 
+String delims = "[,]";
+
 Prefs.setThreads(1); 	// defines the number of threads allowed 
 print("Threads: "+Prefs.getThreads()); // prints thread setting in output
 
@@ -17,62 +19,78 @@ System.out.println("Start loading parameters");
 System.out.println("=========================================================");
 System.out.println("Directory:");
 image_file_directory = System.getProperty( "image_file_directory" );
-xml_filename = System.getProperty( "xml_filename" );
+project_filename = System.getProperty( "project_filename" );
 
 System.out.println( "image_file_directory = " + image_file_directory );
-System.out.println( "xml_filename = " + xml_filename );
+System.out.println( "project_filename = " + project_filename );
 
 // Dataset settings
 System.out.println("=========================================================");
 System.out.println("Dataset:");
 
-type_of_dataset = System.getProperty( "type_of_dataset" );
+define_dataset = System.getProperty( "define_dataset" );
 multiple_timepoints = System.getProperty( "multiple_timepoints" );
 multiple_illumination_directions = System.getProperty( "multiple_illumination_directions" );
 multiple_angles = System.getProperty( "multiple_angles" );
+multiple_tiles = System.getProperty( "multiple_tiles" );
 imglib_container = System.getProperty( "imglib_container" );
 
-System.out.println( "type_of_dataset = " + type_of_dataset );
+System.out.println( "define_dataset = " + define_dataset );
 System.out.println( "multiple_timepoints = " + multiple_timepoints );
 System.out.println( "multiple_illumination_directions = " + multiple_illumination_directions );
 System.out.println( "multiple_angles = " + multiple_angles );
+System.out.println( "multiple_tiles = " + multiple_tiles );
 System.out.println( "imglib_container = " + imglib_container );
 
-// Channel switch
 System.out.println("=========================================================");
-System.out.println("Channel Switch:");
-//multiple_channels = System.getProperty( "multiple_channels" );
-String multiple_channels = null;
+System.out.println("Channels:");
+
 channels = System.getProperty( "channels" ); 
-// Parses string
-String delims = "[,]";
 String[] channel_token = channels.split(delims);
-
-
-if ( channel_token.length ==1 )
-
+String multiple_channels = null;
+if ( channel_token.length == 1 )
 { 
-
-	channels = "";
 	multiple_channels = "NO (one channel)";
 }
-
 else if ( channel_token.length > 1 )
-
 {
-
-	channels = "channels_=" + channels + " ";
 	multiple_channels = "YES (one file per channel)";
-	System.out.println( "channels = " + channels );
 }
-
 else {
-
 	System.out.println( "Channel switch setting gibberish" );
-
 }
-
+System.out.println( "channels = " + channels );
 System.out.println( "multiple_channels = " + multiple_channels );
+
+
+System.out.println("=========================================================");
+System.out.println("Timepoints:");
+
+int ntimepoints = Integer.parseInt(System.getProperty("ntimepoints" ) );
+String timepoints = "";
+for (int i = 0; i < ntimepoints; i++)
+{
+    timepoints += i + ",";
+}
+timepoints = timepoints.substring(0, timepoints.length() - 1);
+System.out.println( "timepoints = " + timepoints );
+
+
+System.out.println("=========================================================");
+System.out.println("File name pattern:");
+
+image_file_pattern = "fused";
+if ( ntimepoints > 0 || multiple_channels.equals( "YES (one file per channel)" ) || multiple_illumination_directions.equals("YES (one file per illumination direction)") )
+{
+    image_file_pattern += "_tp_{t}_ch_{c}";
+	
+	if ( multiple_illumination_directions.equals("YES (one file per illumination direction)") )
+	{
+	    image_file_pattern += "_illum_{i}";
+	}
+}
+image_file_pattern += ".tif";
+System.out.println( image_file_pattern );
 
 // Calibration
 System.out.println("=========================================================");
@@ -101,7 +119,7 @@ else if (manual_calibration_output.equalsIgnoreCase( "Yes" ) )
 {
 	
 	modify_calibration_string = "calibration_definition=[User define voxel-size(s)] ";
-	manual_calibration_string = " pixel_distance_x=" + pixel_distance_x + " " +
+	manual_calibration_string = "pixel_distance_x=" + pixel_distance_x + " " +
 				    "pixel_distance_y=" + pixel_distance_y + " " +
 				    "pixel_distance_z=" + pixel_distance_z + " " +
 				    "pixel_unit=" + pixel_unit + " ";
@@ -115,86 +133,19 @@ else
 	System.out.println( "Manual calibration setting bad" );
 }
 
-// Assembles Image file pattern
-System.out.println("=========================================================");
-System.out.println("image_file_pattern:");
-channel_name = System.getProperty( "channels" ); 
-angles = System.getProperty( "angles" );
-illumination = System.getProperty( "illumination" );
-
-System.out.println( "channel_name =" + channel_name );
-System.out.println( "angles = " + angles );
-System.out.println( "illumination = " + illumination );
-
-
-// Parses string illumination
-String[] illumination_token = illumination.split(delims);
-
-String string_part_1 = null;
-String string_part_2 = null;
-String image_file_pattern = null;
-
-// Decides based on the numbers of channels in parameter channels which
-// channel string is necessary
-if (channel_token.length == 1)
-{
-        string_part_1 = "TP{t}_Ch" + channel_name + "_";
-}
-
-else if (channel_token.length > 1)
-{
-        string_part_1 = "TP{t}_Ch{c}_";
-}
-
-else
-{
-        System.out.println( "Channel Setting bad" );
-}
-
-// Decides based on the numbers of illuminations in parameter illumination which
-// illumination string is necessary
-if (illumination_token.length == 1)
-{
-        string_part_2 = "Ill0_";
-}
-
-else if (illumination_token.length > 1)
-{
-        string_part_2 = "Ill{i}_";
-}
-
-else
-{
-        System.out.println( "Illumination Setting bad" );
-}
-
-// Puts together the string for image_file_pattern
-image_file_pattern = string_part_1 + string_part_2 + "Ang" + angles +".tif";
-
-System.out.println( image_file_pattern );
-
-System.out.println("=========================================================");
-System.out.println("time points setting:");
-
-int ntimepoints = Integer.parseInt(System.getProperty("ntimepoints" ) );
-
-int last_timepoint = ntimepoints - 1;
-String timepoints = "0-" + last_timepoint;
-
-System.out.println( "timepoints = " + timepoints );
-
 System.out.println("=========================================================");
 System.out.println("Start plugin:");
-System.out.println("Define Multi-View Dataset , type_of_dataset=[" + type_of_dataset + "] " +
-	"xml_filename=[" + xml_filename + ".xml] " +
+System.out.println("Define Multi-View Dataset , define_dataset=[" + define_dataset + "] " +
+	"project_filename=" + project_filename + ".xml " +
 	"multiple_timepoints=[" + multiple_timepoints + "] " +
 	"multiple_channels=[" + multiple_channels + "] " +
 	"_____multiple_illumination_directions=[" + multiple_illumination_directions + "] " + 
 	"multiple_angles=[" + multiple_angles + "] " +
+	"multiple_tiles=[" + multiple_tiles + "] " +	
 	"image_file_directory=" + image_file_directory + " " +
 	"image_file_pattern=" + image_file_pattern + " " + 
 	"timepoints_=" + timepoints + " " +
-	channels +
+	"channels_=" + channels + " " +
 	"calibration_type=[Same voxel-size for all views] " +
 	modify_calibration_string + 
 	"imglib2_data_container=[" + imglib_container + "] " + 
@@ -204,16 +155,17 @@ System.out.println("Define Multi-View Dataset , type_of_dataset=[" + type_of_dat
 // Executes Fiji plugin
 try {
 IJ.run("Define Multi-View Dataset", 
-	"type_of_dataset=[" + type_of_dataset + "] " +
-	"xml_filename=[" + xml_filename + ".xml] " +
+	"define_dataset=[" + define_dataset + "] " +
+	"project_filename=" + project_filename + ".xml " +
 	"multiple_timepoints=[" + multiple_timepoints + "] " +
 	"multiple_channels=[" + multiple_channels + "] " +
 	"_____multiple_illumination_directions=[" + multiple_illumination_directions + "] " + 
 	"multiple_angles=[" + multiple_angles + "] " +
+	"multiple_tiles=[" + multiple_tiles + "] " +	
 	"image_file_directory=" + image_file_directory + " " +
 	"image_file_pattern=" + image_file_pattern + " " + 
 	"timepoints_=" + timepoints + " " +
-	channels +
+	"channels_=" + channels + " " +
 	"calibration_type=[Same voxel-size for all views] " +
 	modify_calibration_string + 
 	"imglib2_data_container=[" + imglib_container + "] " + 
@@ -229,5 +181,3 @@ catch ( e ) {
 }
 /* shutdown */
 runtime.exit(0);
-
-

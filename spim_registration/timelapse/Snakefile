@@ -455,11 +455,12 @@ rule define_output:
         -Dpixel_distance_y={output_pixel_distance_y} \
         -Dpixel_distance_z={output_pixel_distance_z} \
         -Dpixel_unit={output_pixel_unit} \
-        -Dxml_filename={output_xml} \
-        -Dtype_of_dataset={output_type_of_dataset} \
+        -Dproject_filename={output_xml} \
+        -Ddefine_dataset={output_type_of_dataset} \
         -Dmultiple_timepoints={output_multiple_timepoints} \
         -Dmultiple_illumination_directions={output_illumination_directions} \
         -Dmultiple_angles={output_multiple_angles} \
+		-Dmultiple_tiles={output_multiple_tiles} \
         -Dimglib_container={output_imglib_container} \
         -- --no-splash {path_bsh}""",
         config["common"],

@@ -487,10 +487,11 @@ hdf5_output: {
   # subsampling_output: '"{{ {{1,1,1}}, {{2,2,2}} }}"',
   # chunk_sizes_output: '"{{ {{16,16,16}}, {{16,16,16}} }}"',
   # Standard settings for hdf5_output
-  output_type_of_dataset: '"Image Stacks (ImageJ Opener)"', # '"Image Stacks (ImageJ Opener)"' or '"Image Stacks (LOCI Bioformats)"'
+  output_type_of_dataset: '"Manual Loader (TIFF only, ImageJ Opener)"', # '"Manual Loader (TIFF only, ImageJ Opener)"' or '"Manual Loader (Bioformats based)"'
   output_multiple_timepoints: '"YES (one file per time-point)"',
-  output_multiple_angles: '"NO (one angle)"',
   output_illumination_directions: '"NO (one illumination direction)"',
+  output_multiple_angles: '"NO (one angle)"',
+  output_multiple_tiles: '"NO (one tile)"',
   output_imglib_container: '"ArrayImg (faster)"',
   bsh_file_define: "define_output.bsh", # .bsh script for defining the dataset
   bsh_file_hdf5: "export_output.bsh"    # .bsh script for resaving into hdf5
