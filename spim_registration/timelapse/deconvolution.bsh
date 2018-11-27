@@ -303,7 +303,6 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
 	"process_tile=[All tiles] " +
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-//  "type_of_image_fusion=[Multi-view deconvolution] " +
 //  bounding_box_string +
 //	allow_to_modify_string +
 //	"bounding_box_title=[" + bounding_box_title + "] " +
@@ -331,7 +330,6 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
 	fast_sequential_iterations_string +
 	"osem_acceleration=" + osem_acceleration + " " +
 	"number_of_iterations=" + iterations + " " +
-//	"adjust_blending_parameters " +
 	"use_tikhonov_regularization " +
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +
@@ -350,7 +348,6 @@ IJ.run("Deconvolve",
 	"process_tile=[All tiles] " +
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-//	"type_of_image_fusion=[Multi-view deconvolution] " +
 //  bounding_box_string +
 //	allow_to_modify_string +
 //	"bounding_box_title=[" + bounding_box_title + "] " +
@@ -378,7 +375,6 @@ IJ.run("Deconvolve",
 	fast_sequential_iterations_string +
 	"osem_acceleration=" + osem_acceleration + " " +
 	"number_of_iterations=" + iterations + " " +
-//	"adjust_blending_parameters " +
 	"use_tikhonov_regularization " +
 	"tikhonov_parameter=" + Tikhonov_parameter + " " +
 	"compute=[" + compute + "] " +

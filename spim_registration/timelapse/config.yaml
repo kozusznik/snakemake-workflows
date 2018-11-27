@@ -438,7 +438,7 @@ external_transform: {
   }
   
   # ----------------------------------------------------------------------------
-  # 9.10. external_transform
+  # 9.10. deconvolution
   # ----------------------------------------------------------------------------
 deconvolution: {
   # Settings for GPU or CPU processing 
@@ -453,7 +453,17 @@ deconvolution: {
   downsample_deco: '2',
   input: '"Cached"',
   weight: '"Cached"',
+  # PSF init choice
+  # '"Blurred, fused image (suggested, higher compute effort)"', or
+  # '"Average intensity (higer compute effort)"', or
+  # '"Approximated average intensity (fast option)"', or
+  # '"From TIFF file (dimensions must match bounding box)"', or
   initialize_with: '"Blurred, fused image (suggested, higher compute effort)"',
+  # PSF type choice
+  # '"Efficient Bayesian - Optimization II (very fast, imprecise)"', or
+  # '"Efficient Bayesian - Optimization I (fast, precise)"', or
+  # '"Efficient Bayesian (less fast, more precise)"', or
+  # '"Independent (slow, very precise)"'
   type_of_iteration: '"Efficient Bayesian - Optimization I (fast, precise)"',
   Tikhonov_parameter: '0.006',
   compute: '"in 512x512x512 blocks"',
