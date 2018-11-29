@@ -375,14 +375,16 @@ rule external_transform:
         )
         cmd_string += " > {log} 2>&1 && touch {output}"
         shell(cmd_string)
-ruleorder: start_deconvolution > timelapse
 
-rule start_deconvolution:
-    input: "start_deconvolution", "{xml_base}.xml"
-    output: [ str("{xml_base}_merge.xml_" + config["common"]["transformation_switch"] + config["common"]["external_trafo_switch"] ) ], "{xml_base}_merged.xml"
+ruleorder: deconvolution_prepared > timelapse
+ruleorder: deconvolution_prepared > xml_merge
+
+rule deconvolution_prepared:
+    input: "deconvolution_prepared", xml="{xml_base}.xml"
+    output: [ str("{xml_base}_merge.xml_" + config["common"]["transformation_switch"] + config["common"]["external_trafo_switch"] ) ], merged_xml="{xml_base}_merge.xml"
     priority: 10
     run:
-        cmd_string = " cp {xml_base}.xml {xml_base}_merged.xml && touch {output}"
+        cmd_string = " cp {input.xml} {output.merged_xml}  && touch {output}" 
         shell(cmd_string)
 
 rule deconvolution:
