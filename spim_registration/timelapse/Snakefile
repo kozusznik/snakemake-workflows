@@ -41,24 +41,17 @@ rule define_xml_czi:
     run:
         cmd_string = produce_string(
                 """{fiji-prefix} {fiji-app} \
-        -Dimage_file_directory={jdir} \
-        -Dfirst_czi={first_czi} \
-        -Dangles={angles} \
-        -Dchannels={channels} \
-        -Dillumination={illumination} \
-        -Dmanual_calibration_czi={manual_calibration_czi} \
-        -Dczi_pixel_distance_x={czi_pixel_distance_x} \
-        -Dczi_pixel_distance_y={czi_pixel_distance_y} \
-        -Dczi_pixel_distance_z={czi_pixel_distance_z} \
-        -Dczi_pixel_unit={czi_pixel_unit} \
-        -Dfirst_xml_filename={first_xml_filename} \
-        -Drotation_around={rotation_around} \
-        -Dfix_bioformats={fix_bioformats} \
+        -Dproject_filename={project_filename} \
+        -Dpath={path} \
+        -Ddataset_save_path={dataset_save_path} \
+        -Dapply_rotation_to_dataset={apply_rotation_to_dataset} \
+        -Dcheck_stack_sizes={check_stack_sizes} \
         -- --no-splash {path_bsh}""",
            config["common"],
            config["define_xml_czi"],
-           jdir=JOBDIR,
-           first_xml_filename=config["common"]["hdf5_xml_filename"].strip('\"') + "_first",
+           dataset_save_path = JOBDIR,
+           project_filename = config["common"]["hdf5_xml_filename"].strip('\"') + "_first",
+           path = JOBDIR + config["common"]["first_czi"],
            path_bsh=os.path.join(config["common"]["bsh_directory"],config["define_xml_czi"]["bsh_file"])
         )
         cmd_string += " > {log} 2>&1"
@@ -501,7 +494,7 @@ rule hdf5_xml_output:
                 -Dresave_channel={resave_channel} \
                 -Dresave_illumination={resave_illumination} \
                 -Dresave_timepoint={resave_timepoint} \
-				-Dresave_tile={resave_tile} \
+                -Dresave_tile={resave_tile} \
                 -Dsubsampling_factors={subsampling_output} \
                 -Dhdf5_chunk_sizes={chunk_sizes_output} \
                 -Dtimepoints_per_partition={timepoints_per_partition} \
@@ -543,6 +536,7 @@ rule resave_hdf5_output:
         -Dsetups_per_partition={setups_per_partition} \
         -Drun_only_job_number={job_number} \
         -Dfusion_switch={fusion_switch} \
+        -Dresave_tile={resave_tile} \
         -Dconvert_32bit={convert_32bit}\
         -- --no-splash {path_bsh}""",
            config["common"],
