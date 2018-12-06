@@ -92,7 +92,8 @@ downsample_z = System.getProperty( "downsample_z" );
 System.out.println( "downsample_detection = " + downsample_detection );
 System.out.println( "downsample_xy = " + downsample_xy );
 System.out.println( "downsample_z = " + downsample_z );
-
+downsample_images = null;
+downsample_string = null;
 // downsample switch
 if (downsample_detection.equalsIgnoreCase("Yes") )
 {
@@ -429,7 +430,7 @@ System.out.println( "Activated Cluster Processing" );
 System.out.println( "=======================================================" );
 System.out.println( "Starting Detection of Interest Points" );
 
-System.out.println("(Detect Interest Points for Registration , select_xml=" + xml_path + xml_filename + ".xml " +
+System.out.println("(Detect Interest Points for Registration , select=" + xml_path + xml_filename + ".xml " +
 	"unique_id=" + unique_id + " " +
 	"process_angle=[" + reg_process_angle + "] " +
 	"process_channel=[" + reg_process_channel + "] " +
@@ -450,7 +451,7 @@ System.out.println("(Detect Interest Points for Registration , select_xml=" + xm
 
 try {
 IJ.run("Detect Interest Points for Registration",
-	"select_xml=" + xml_path + xml_filename + ".xml " +
+	"select=" + xml_path + xml_filename + ".xml " +
 	"unique_id=" + unique_id + " " +
 	"process_angle=[" + reg_process_angle + "] " +
 	"process_channel=[" + reg_process_channel + "] " +
@@ -481,7 +482,7 @@ catch ( e ) {
 System.out.println( "=======================================================" );
 System.out.println( "Starting Registration" );
 
-System.out.println("Register Dataset based on Interest Points , select_xml=" + xml_path + xml_filename + ".job_" + unique_id + ".xml " +
+System.out.println("Register Dataset based on Interest Points , select=" + xml_path + xml_filename + ".job_" + unique_id + ".xml " +
         "process_angle=[" + reg_process_angle + "] " +
         "process_channel=[" + reg_process_channel + "] " +
         "process_illumination=[" + reg_process_illumination + "] " +
@@ -503,7 +504,7 @@ System.out.println("Register Dataset based on Interest Points , select_xml=" + x
 
 try {
 IJ.run("Register Dataset based on Interest Points",
-	"select_xml=" + xml_path + xml_filename + ".job_" + unique_id + ".xml " +
+	"select=" + xml_path + xml_filename + ".job_" + unique_id + ".xml " +
         "process_angle=[" + reg_process_angle + "] " +
         "process_channel=[" + reg_process_channel + "] " +
         "process_illumination=[" + reg_process_illumination + "] " +

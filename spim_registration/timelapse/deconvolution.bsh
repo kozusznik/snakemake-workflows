@@ -325,7 +325,7 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
     "downsampling=" + downsampling + " " +
     "input=" + input + " " +
 	"weight=" + weight + " " +
-    "initialize_with=[" + downsampling + "] " +
+    "initialize_with=[" + initialize_with + "] " +
 	"type_of_iteration=[" + type_of_iteration + "] " +
 	fast_sequential_iterations_string +
 	"osem_acceleration=" + osem_acceleration + " " +

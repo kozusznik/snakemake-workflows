@@ -237,14 +237,14 @@ common: {
   #          sysconfcpus setting
   # ============================================================================
   # current working Fiji
-  fiji-app: "/scratch/work/project/open-12-20/haas/spim/Fiji.app-linux64/ImageJ-linux64 -Xss4m",
+  fiji-app: "/opt/Fiji.app/ImageJ-linux64 -Xss4m",
   # bean shell scripts and Snakefile
-  bsh_directory: "/scratch/work/project/open-12-20/haas/spim/snakemake-workflows/spim_registration/timelapse/",
+  bsh_directory: "/opt/snakemake-workflows/spim_registration/timelapse/",
   # Directory that contains the cuda libraries
   directory_cuda: "/sw/users/schmied/cuda/",
-  # fiji-prefix: "xvfb-run -a",
-  fiji-prefix: "",
-  sysconfcpus: "/scratch/work/project/open-12-20/haas/spim/bin/sysconfcpus -n",
+  # xvfb 
+  fiji-prefix: "xvfb-run -a",
+  sysconfcpus: "sysconfcpus -n",
   memory-prefix: "-Xmx"
   }
   
@@ -296,15 +296,9 @@ Fiji_resources: {
   # 9.1. define_xml_czi
   # ----------------------------------------------------------------------------
 define_xml_czi: {
-  manual_calibration_czi: "No", # calibration override: No or Yes
-  czi_pixel_distance_x: '0.285901069641113',  # Manual calibration x
-  czi_pixel_distance_y: '0.285901069641113',  # Manual calibration y
-  czi_pixel_distance_z: '1.500000000000000',  # Manual calibration z
-  czi_pixel_unit: "um",             # unit of manual calibration
-  rotation_around: "Y-Axis",       # axis of acquistion
   bsh_file: "define_czi.bsh",       # .bsh script for defining .czi file
   apply_rotation_to_dataset: "Yes",
-  fix_bioformats: "Yes"
+  check_stack_sizes: "Yes"
   }
   
   # ----------------------------------------------------------------------------
@@ -418,7 +412,7 @@ fusion: {
   pixel_type: '"16-bit unsigned integer"',
   imglib2_data_container: '"ArrayImg (faster)"',
   process_views_in_paralell: '"All"',
-  fused_image: '"Save as TIFF stack"', 
+  fused_image: '"Save as (compressed) TIFF stacks"', 
   bsh_file: "fusion.bsh"
   }
   # ----------------------------------------------------------------------------
