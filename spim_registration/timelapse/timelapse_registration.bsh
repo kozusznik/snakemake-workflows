@@ -140,7 +140,7 @@ System.out.println( "reg_multi_channel_string = " + reg_multi_channel_string );
 System.out.println( "=======================================================" );
 System.out.println( "Starting Timelapse Registration" );
 
-System.out.println( "Register Dataset based on Interest Points , select_xml=" + xml_path + merged_xml + " " +
+System.out.println( "Register Dataset based on Interest Points , select=" + xml_path + merged_xml + " " +
 	"process_angle=[" + reg_process_angle + "] " + 
 	"process_channel=[" + reg_process_channel + "] " +
 	"process_illumination=[" + reg_process_illumination + "] " +  
@@ -162,7 +162,7 @@ System.out.println( "Register Dataset based on Interest Points , select_xml=" + 
 
 try {
 IJ.run("Register Dataset based on Interest Points", 
-	"select_xml=" + xml_path + merged_xml + " " +
+	"select=" + xml_path + merged_xml + " " +
 	"process_angle=[" + reg_process_angle + "] " + 
 	"process_channel=[" + reg_process_channel + "] " +
 	"process_illumination=[" + reg_process_illumination + "] " +  

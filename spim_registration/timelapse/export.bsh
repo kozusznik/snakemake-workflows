@@ -73,7 +73,7 @@ System.out.println("Start plugin:");
 
 try {
 IJ.run("As HDF5",
-	"select_xml=" + image_file_directory + first_xml_filename + ".xml " +
+	"select=" + image_file_directory + first_xml_filename + ".xml " +
 	"resave_angle=[" + resave_angle + "] " +
 	"resave_channel=[" + resave_channel + "] " +
 	"resave_illumination=[" + resave_illumination + "] " +

@@ -85,15 +85,15 @@ System.out.println( "output_xml" );
 System.out.println( "=======================================================" );
 System.out.println( "Starting Fusion" );
 try{
-IJ.run("Fuse/Deconvolve Dataset", 
-	"select_xml=" + image_file_directory + merged_xml + " " +
+params="select=" + image_file_directory + merged_xml + " " +
 	"process_angle=[" + process_angle + "] " +	
         "process_illumination=[" + process_illumination + "] " +
         "process_timepoint=[" + process_timepoint + "] " +
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " + 
-	"processing_timepoint=[Timepoint "+ parallel_timepoints +"] " +
-	"type_of_image_fusion=[Weighted-average fusion] " +
-	"bounding_box=[Define manually] " +
+        "processing_timepoint=[Timepoint " + parallel_timepoints + "] " + 
+        "processing_timepoint=[Timepoint "+ parallel_timepoints +"] " +
+        "type_of_image_fusion=[Weighted-average fusion] " +
+        "bounding_box=[Currently Selected Views] " +
+        "image=[Precompute Image] " +
 	//"fused_image=[Save as TIFF stack] " + // works but does not create xml file
 	"fused_image=[" + fused_image + "] " +
 	"minimal_x=" + minimal_x + " " +
@@ -110,9 +110,10 @@ IJ.run("Fuse/Deconvolve Dataset",
 	"blend " +
 	//"content-based " +
 	"output_file_directory=" + image_file_directory + " " +
-	"lossless " +
 	//"select=" + image_file_directory + output_xml + " " +
-	"imglib2_data_container=[" + imglib2_data_container + "]");
+	"imglib2_data_container=[" + imglib2_data_container + "]";
+    System.out.println( "fuse: " + params );
+    IJ.run("Fuse", params);
 }
 catch ( e ) {
 	    print( "[Contentbased multiview fusion] caught exception: "+e );
