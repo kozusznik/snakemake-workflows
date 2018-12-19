@@ -34,7 +34,7 @@ IJ.run("Merge Cluster Jobs",
 	"directory=" + image_file_directory + " " + 	
 	"filename_contains=job_ " + 
 	"filename_also_contains=.xml " +
-	"display " +
+//	"display " +
 //	"delete_xml's " + 
 	"merged_xml=" + merged_xml + "");
 }

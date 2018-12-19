@@ -243,6 +243,7 @@ else if (reg_process_channel.equalsIgnoreCase( "All channels" ) && channel_token
 
 	else if (type_of_detection.equalsIgnoreCase( "Difference-of-Gaussian" ) )
 	{
+		/*
 		for (int channel=0; channel < channel_token.length; channel++ )
 		{
 
@@ -253,6 +254,14 @@ else if (reg_process_channel.equalsIgnoreCase( "All channels" ) && channel_token
 						channel_string_multi.append(channel_part);
 						channel_string_multi.append(" ");
 		}
+		*/
+		String channel_part = "interest_point_specification=[Advanced ...] " +
+                                      "sigma=" + sigma + " " +
+                                      "threshold=" + dog_threshold + " " +
+                                      "find_maxima";
+		channel_string_multi.append(channel_part);
+		channel_string_multi.append(" ");
+
 	}
 
 	else
@@ -371,7 +380,8 @@ if (channels.equalsIgnoreCase(""))
 else if (reg_process_channel.equalsIgnoreCase( "All channels" ) && channel_token.length == 1 && interest_token.length == 1 )
 {
 	reg_multi_channel_string.append( "" );
-	reg_single_channel_string = "interest_points_channel_" + channels + "=" + reg_interest_points_channel + " ";
+//	reg_single_channel_string = "interest_points_channel_" + channels + "=" + reg_interest_points_channel + " ";
+	reg_single_channel_string = "interest_points=" + reg_interest_points_channel + " ";
 }
 
 // Returns error if Multi Channels are selected but not enough settings in channels or 	reg_interest_points_channel
@@ -383,12 +393,15 @@ else if (reg_process_channel.equalsIgnoreCase( "All channels" ) &&  ( channel_to
 // Assembles string for Multi Channel registration
 else if (reg_process_channel.equalsIgnoreCase( "All channels" ) && channel_token.length > 1 )
 {
+/*
 	for (int channel=0; channel < channel_token.length; channel++ )
 	{
 		String channel_part = "interest_points_channel_" + channel_token[channel] + "=" + interest_token[channel] + " ";
 		reg_multi_channel_string.append( channel_part );
 		reg_multi_channel_string.append(" ");
 	}
+*/
+	reg_multi_channel_string.append("interest_points=" + reg_interest_points_channel + " ");
 }
 
 // Returns error of Multi Channels one Channel contains the beads is selected but not enough settings in channels or reg_interest_points_channel
@@ -400,12 +413,15 @@ else if (reg_process_channel.equalsIgnoreCase( "Single channel (Select from List
 // Assembles string for Multi Channel Processing one Channel Contains the beads
 else if (reg_process_channel.equalsIgnoreCase( "Single channel (Select from List)" ) && channel_token.length > 1 && interest_token.length > 1)
 {
+/*
 	for (int channel=0; channel < channel_token.length; channel++ )
 	{
 		String channel_part = "interest_points_channel_" + channel_token[channel] + "=" + interest_token[channel] + " ";
 		reg_multi_channel_string.append( channel_part );
 		reg_multi_channel_string.append(" ");
 	}
+*/
+	reg_multi_channel_string.append("interest_points=" + reg_interest_points_channel + " ");
 }
 
 		System.out.println( "reg_single_channel_string = " + reg_single_channel_string );
