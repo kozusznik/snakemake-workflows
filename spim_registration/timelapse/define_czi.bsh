@@ -14,54 +14,179 @@ print("Threads: "+Prefs.getThreads()); // prints thread setting in output
 
 System.out.println("Start loading parameters");
 
-
-
 // Directory, and first .czi
 System.out.println("---------------------------------------------------------");
+System.out.println("Directory:");
+image_file_directory = System.getProperty( "image_file_directory" );
+first_xml_filename = System.getProperty( "first_xml_filename" );
+first_czi = System.getProperty( "first_czi" );
 
-apply_rotation_to_dataset = System.getProperty("apply_rotation_to_dataset");
-apply_rotation_to_dataset_str = "";
-if ( apply_rotation_to_dataset.equalsIgnoreCase( "Yes" ) ) {
-    apply_rotation_to_dataset_str = "apply_rotation_to_dataset";
-} else if ( !apply_rotation_to_dataset.equalsIgnoreCase( "No" ) ) {
-    System.out.println("Invalid value " + apply_rotation_to_dataset + " for apply_rotation_to_dataset. Accepted [Yes/No]." );
+System.out.println( "xml_file_path = " + image_file_directory + first_xml_filename + ".xml" );
+System.out.println( "first_czi_path = " + image_file_directory + first_czi );
+
+// Dataset settings
+System.out.println("---------------------------------------------------------");
+System.out.println("Angle Settings:");
+
+// Angle settings
+// Parses angles and determines the number of angles
+// uses tokens of string angles to assemble the string for angle_string
+// via StringBuilder
+angles = System.getProperty( "angles" );
+System.out.println( "Angles = " + angles );
+
+// Parses string angles
+String delims = "[,]";
+String[] angle_token = angles.split(delims);
+
+// Builds string using the number of tokens and inserts the tokens in the string
+StringBuilder angle_string = new StringBuilder();
+String angle_part;
+
+	for ( int angle = 0; angle < angle_token.length; angle++) {
+		int num_angles = angle + 1;
+		angle_part = "angle_" + num_angles + "=" + angle_token[angle];
+		angle_string.append(angle_part);
+		angle_string.append(" ");
+		}
+
+System.out.println( angle_string );
+
+System.out.println("---------------------------------------------------------");
+System.out.println("Channel Settings:");
+
+// Channel settings
+// This parses channels and determines the number of channels
+// then uses the tokens of channels to assemble the necessary string
+// for channel_string via StringBuilder
+channels = System.getProperty( "channels" );
+System.out.println( "Channel Names = " + channels );
+
+// Parses string channel_names
+String delims = "[,]";
+String[] channel_token = channels.split(delims);
+
+// Builds string using the number of tokens and inserts the tokens in the string
+StringBuilder channel_string = new StringBuilder();
+String channel_part;
+
+	for ( int channel = 0; channel < channel_token.length; channel++) {
+		int num_channel = channel + 1;
+		channel_part = "channel_" + num_channel + "=" + channel_token[channel];
+		channel_string.append(channel_part);
+		channel_string.append(" ");
+		}
+System.out.println( "Channel String = " + channel_string );
+
+System.out.println("---------------------------------------------------------");
+System.out.println("Illumination Settings:");
+
+// Illuminatin settings
+// This parses illumination and determines the number of illuminations
+// then uses the tokens of illuminations to assemble the string for 
+// illum_string via StringBuilder
+illumination = System.getProperty( "illumination" );
+System.out.println( "Illumination = " + illumination );
+
+// Parses string illumination
+String delims = "[,]";
+String[] illum_token = illumination.split(delims);
+
+// Builds string using the number of tokens and inserts the tokens in the string
+StringBuilder illum_string = new StringBuilder();
+String illum_part;
+
+	for ( int illum= 0; illum< illum_token.length; illum++) {
+		int num_illum = illum + 1;
+		illum_part = "_______illumination_" + num_illum + "=" + illum_token[illum];
+		illum_string.append(illum_part);
+		illum_string.append(" ");
+		}
+
+System.out.println( illum_string );
+
+System.out.println("---------------------------------------------------------");
+System.out.println("Rotation setting:");
+
+rotation_around = System.getProperty( "rotation_around" );
+System.out.println( "rotation_around = " + rotation_around );
+
+// Calibaration
+System.out.println("=========================================================");
+System.out.println("Calibration:");
+manual_calibration_czi = System.getProperty( "manual_calibration_czi" );
+float czi_pixel_distance_x = Float.parseFloat( System.getProperty( "czi_pixel_distance_x" ) );
+float czi_pixel_distance_y = Float.parseFloat( System.getProperty( "czi_pixel_distance_y" ) );
+float czi_pixel_distance_z = Float.parseFloat( System.getProperty( "czi_pixel_distance_z" ) );
+czi_pixel_unit = System.getProperty( "czi_pixel_unit" );
+
+String modify_calibration;
+String manual_calibration_string;
+
+// builds string for calibration override
+if (manual_calibration_czi.equalsIgnoreCase( "No" ) )
+{
+	modify_calibration = "";
+	manual_calibration_string = "";
+	System.out.println( "Calibration set to automatic" );
 }
 
-check_stack_sizes = System.getProperty("check_stack_sizes");
-check_stack_sizes_str = "";
-if ( check_stack_sizes.equalsIgnoreCase( "Yes" ) ) {
-    check_stack_sizes_str = "check_stack_sizes";
-} else if ( !check_stack_sizes.equalsIgnoreCase( "No" ) ) {
-    System.out.println("Invalid value " + check_stack_sizes + " for check_stack_sizes. Accepted [Yes/No]." );
+else if (manual_calibration_czi.equalsIgnoreCase( "Yes" ) )
+{
+	
+	modify_calibration = "modify_calibration ";
+	manual_calibration_string = "pixel_distance_x=" + czi_pixel_distance_x + " " +
+				    "pixel_distance_y=" + czi_pixel_distance_y + " " +
+				    "pixel_distance_z=" + czi_pixel_distance_z + " " +
+				    "pixel_unit=" + czi_pixel_unit + " ";
+	System.out.println( "Calibration set to manual" );
+	System.out.println( "modify_calibration:" + modify_calibration );
+	System.out.println( "manual_calibration_string:" + manual_calibration_string );
 }
 
-project_filename = System.getProperty("project_filename");
-System.out.println("project_filename = " + project_filename);
-path = System.getProperty("path");
-System.out.println("path = " + path);
-dataset_save_path = System.getProperty("dataset_save_path");
-System.out.println("dataset_save_path = " + dataset_save_path);
+else
+{
+	System.out.println( "Manual calibration setting bad" );
+}
 
-parameters_string="define_dataset=[Automatic Loader (Bioformats based)] " +
-                  "project_filename=" + project_filename + ".xml "+
-                  "path="+ path + " " +
-                  "exclude=10 " +
-                  "bioformats_series_are?=Tiles " +
-                  "bioformats_channels_are?=Channels " +
-                  "move_tiles_to_grid_(per_angle)?=[Do not move Tiles to Grid (use Metadata if available)] " +
-                  "how_to_load_images=[Load raw data] " + 
-                  "dataset_save_path=" + dataset_save_path + " " +
-                  check_stack_sizes_str + " " +
-                  apply_rotation_to_dataset_str + " ";
+// Fix bioformats
+System.out.println("=========================================================");
+System.out.println("Fix bioformats:");
+fix_bioformats = System.getProperty( "fix_bioformats", "No");
+String fix_bioformats_string = "";
+if (fix_bioformats.equalsIgnoreCase( "No" ))
+{
+	System.out.println( "No fix bioformat" );
+} 
+else if (fix_bioformats.equalsIgnoreCase( "Yes" )) 
+{
+	fix_bioformats_string = "fix_bioformats";
+	System.out.println( "Fix bioformat" );
+} 
+else 
+{
+	System.out.println( "Fix bioformats setting bad" );
+}
 
+parameters_string = "define_dataset=[Zeiss Lightsheet Z.1 Dataset Loader (Bioformats)] " +
+	"project_filename=" + first_xml_filename + ".xml " +
+	"first_czi=" + image_file_directory + first_czi + " " + 
+	angle_string +
+	channel_string +
+	illum_string +
+	modify_calibration +
+	"modify_rotation_axis " +
+	manual_calibration_string +
+	"rotation_around=" + rotation_around + " " +
+	fix_bioformats_string; 
+	
 // Executes Fiji plugin
 System.out.println("=========================================================");
 System.out.println("Start plugin:");
 System.out.println("Define Multi-View Dataset " + parameters_string);
 
-
 try {
-    IJ.run("Define Multi-View Dataset", parameters_string);
+IJ.run("Define Multi-View Dataset", parameters_string);
 }
 catch ( e ) { 
 
