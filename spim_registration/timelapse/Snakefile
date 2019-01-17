@@ -134,7 +134,7 @@ rule hdf5_xml:
 
 # resave  .czi/.tif dataset as hdf5
 rule resave_hdf5:
-    input: "{xml_base}-{file_id,\d+}-00.h5_xml", config["common"]["hdf5_xml_filename"].strip('\"') + "_first.xml"
+    input: "{xml_base}-{file_id}-00.h5_xml", config["common"]["hdf5_xml_filename"].strip('\"') + "_first.xml"
     output: "{xml_base}-{file_id,\d+}-00.h5", "{xml_base}-{file_id,\d+}-00.h5_hdf5"
     log: "logs/b2_resave_hdf5-{xml_base}-{file_id}.log"
     run:
