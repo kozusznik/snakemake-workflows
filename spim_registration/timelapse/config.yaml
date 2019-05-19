@@ -297,8 +297,14 @@ Fiji_resources: {
   # ----------------------------------------------------------------------------
 define_xml_czi: {
   bsh_file: "define_czi.bsh",       # .bsh script for defining .czi file
+  manual_calibration_czi: "No", # calibration override: No or Yes
+  czi_pixel_distance_x: '0.285901069641113',  # Manual calibration x
+  czi_pixel_distance_y: '0.285901069641113',  # Manual calibration y
+  czi_pixel_distance_z: '1.500000000000000',  # Manual calibration z
+  czi_pixel_unit: "um",             # unit of manual calibration
+  rotation_around: "Y-Axis",       # axis of acquistion
   apply_rotation_to_dataset: "Yes",
-  check_stack_sizes: "Yes"
+  fix_bioformats: "Yes"
   }
   
   # ----------------------------------------------------------------------------

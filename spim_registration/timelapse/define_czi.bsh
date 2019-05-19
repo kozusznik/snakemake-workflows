@@ -81,7 +81,7 @@ System.out.println( "Channel String = " + channel_string );
 System.out.println("---------------------------------------------------------");
 System.out.println("Illumination Settings:");
 
-// Illuminatin settings
+// Illumination settings
 // This parses illumination and determines the number of illuminations
 // then uses the tokens of illuminations to assemble the string for 
 // illum_string via StringBuilder
@@ -105,14 +105,8 @@ String illum_part;
 
 System.out.println( illum_string );
 
-System.out.println("---------------------------------------------------------");
-System.out.println("Rotation setting:");
-
-rotation_around = System.getProperty( "rotation_around" );
-System.out.println( "rotation_around = " + rotation_around );
-
 // Calibaration
-System.out.println("=========================================================");
+System.out.println("---------------------------------------------------------");
 System.out.println("Calibration:");
 manual_calibration_czi = System.getProperty( "manual_calibration_czi" );
 float czi_pixel_distance_x = Float.parseFloat( System.getProperty( "czi_pixel_distance_x" ) );
@@ -149,19 +143,63 @@ else
 	System.out.println( "Manual calibration setting bad" );
 }
 
+// Rotation setting
+System.out.println("---------------------------------------------------------");
+System.out.println("Rotation setting:");
+rotation_around = System.getProperty( "rotation_around" );
+String rotation_around_string = "";
+if (rotation_around.equalsIgnoreCase( "X-Axis" ))
+{
+    rotation_around_string = "rotation_around=X-Axis ";
+	System.out.println( "Rotation around X-Axis" );
+}
+else if (rotation_around.equalsIgnoreCase( "Y-Axis" ))
+{
+    rotation_around_string = "rotation_around=Y-Axis ";
+	System.out.println( "Rotation around Y-Axis" );
+}
+else if (rotation_around.equalsIgnoreCase( "Z-Axis" ))
+{
+    rotation_around_string = "rotation_around=Z-Axis ";
+	System.out.println( "Rotation around Z-Axis" );
+}
+else
+{
+    System.out.println( "Rotation setting bad. Accepted: X-Axis, Y-Axis, Y-Axis" );
+}
+
+// Apply rotation to dataset
+System.out.println("---------------------------------------------------------");
+System.out.println("Apply rotation to dataset:");
+apply_rotation_to_dataset = System.getProperty("apply_rotation_to_dataset", "No");
+String apply_rotation_to_dataset_string = "";
+if (apply_rotation_to_dataset.equalsIgnoreCase( "No" ))
+{
+    System.out.println( "Don't apply rotation to dataset" );
+}
+else if (apply_rotation_to_dataset.equalsIgnoreCase( "Yes" ))
+{
+    apply_rotation_to_dataset_string = "apply_rotation_to_dataset ";
+	System.out.println( "Apply rotation to dataset" );
+}
+else
+{
+    System.out.println("Apply rotation to dataset setting bad. Accepted [Yes/No]." );
+}
+
 // Fix bioformats
-System.out.println("=========================================================");
+System.out.println("---------------------------------------------------------");
 System.out.println("Fix bioformats:");
 fix_bioformats = System.getProperty( "fix_bioformats", "No");
 String fix_bioformats_string = "";
 if (fix_bioformats.equalsIgnoreCase( "No" ))
 {
-	System.out.println( "No fix bioformat" );
+	System.out.println( "Don't fix bioformats" );
 } 
 else if (fix_bioformats.equalsIgnoreCase( "Yes" )) 
 {
 	fix_bioformats_string = "fix_bioformats";
-	System.out.println( "Fix bioformat" );
+	System.out.println( "Fix bioformats" );
 } 
 else 
 {
@@ -177,11 +215,12 @@ parameters_string = "define_dataset=[Zeiss Lightsheet Z.1 Dataset Loader (Biofor
 	modify_calibration +
 	"modify_rotation_axis " +
 	manual_calibration_string +
-	"rotation_around=" + rotation_around + " " +
+	rotation_around_string +
+	apply_rotation_to_dataset_string +
 	fix_bioformats_string; 
 	
 // Executes Fiji plugin
-System.out.println("=========================================================");
+System.out.println("---------------------------------------------------------");
 System.out.println("Start plugin:");
 System.out.println("Define Multi-View Dataset " + parameters_string);
 
