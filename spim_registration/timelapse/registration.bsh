@@ -30,14 +30,16 @@ System.out.println( "General parameters: " );
 
 int parallel_timepoints = Integer.parseInt(System.getProperty( "parallel_timepoints" ));
 unique_id = System.getProperty( "parallel_timepoints" );
-reg_process_timepoint = System.getProperty( "reg_process_timepoint" );
-reg_process_illumination = System.getProperty( "reg_process_illumination" );
 reg_process_angle = System.getProperty( "reg_process_angle" );
+reg_process_illumination = System.getProperty( "reg_process_illumination" );
+reg_process_tile = System.getProperty( "reg_process_tile" );
+reg_process_timepoint = System.getProperty( "reg_process_timepoint" );
 
 System.out.println( "parallel_timepoints = " + parallel_timepoints );
-System.out.println( "process_timepoints = " + reg_process_timepoint );
-System.out.println( "process_illumination = " + reg_process_illumination );
 System.out.println( "process_angle = " + reg_process_angle );
+System.out.println( "process_illumination = " + reg_process_illumination );
+System.out.println( "process_tile = " + reg_process_tile );
+System.out.println( "process_timepoints = " + reg_process_timepoint );
 
 // Interest point detection parameters
 System.out.println( "-------------------------------------------------------" );

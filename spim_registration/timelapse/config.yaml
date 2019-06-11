@@ -358,9 +358,10 @@ registration: {
   downsample_z: "1x",
   # Standard Settings for bead based registration
   label_interest_points: '"beads"',              
-  reg_process_timepoint: '"Single Timepoint (Select from List)"',
   reg_process_angle: '"All angles"',
   reg_process_illumination: '"All illuminations"',
+  reg_process_tile: '"All tiles"',
+  reg_process_timepoint: '"Single Timepoint (Select from List)"',
   subpixel_localization: '"3-dimensional quadratic fit"',
   detection_min_max: "find_maxima",
   type_of_registration: '"Register timepoints individually"',

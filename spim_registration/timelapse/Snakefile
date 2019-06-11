@@ -184,10 +184,11 @@ rule registration:
         -Dparallel_timepoints={file_id_w} \
         -Dimage_file_directory={jdir} \
         -Dxml_filename={input_xml} \
-        -Dreg_process_timepoint={reg_process_timepoint} \
+        -Dreg_process_angle={reg_process_angle} \
         -Dreg_process_channel={reg_process_channel} \
         -Dreg_process_illumination={reg_process_illumination} \
-        -Dreg_process_angle={reg_process_angle} \
+		-Dreg_process_tile={reg_process_tile} \
+        -Dreg_process_timepoint={reg_process_timepoint} \
         -Dchannels={channels} \
         -Dreg_processing_channel={source_channel} \
         -Dlabel_interest_points={label_interest_points} \
