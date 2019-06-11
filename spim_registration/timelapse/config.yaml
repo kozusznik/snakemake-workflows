@@ -364,7 +364,8 @@ registration: {
   subpixel_localization: '"3-dimensional quadratic fit"',
   detection_min_max: "find_maxima",
   type_of_registration: '"Register timepoints individually"',
-  algorithm: '"Fast 3d geometric hashing (rotation invariant)"',
+  # Registration algorithm. No other methods currently supported. this one corresponds to former version's Fast 3D Geometric hashing.
+  algorithm: '"Fast descriptor-based (rotation invariant)"',
   transformation_model: "Affine",
   allowed_error_for_ransac: '5',
   significance: '10',
