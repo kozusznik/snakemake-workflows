@@ -28,18 +28,27 @@ System.out.println( "selected_xml = " + xml_path + xml_filename + ".xml");
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "General parameters: " );
 
-int parallel_timepoints = Integer.parseInt(System.getProperty( "parallel_timepoints" ));
-unique_id = System.getProperty( "parallel_timepoints" );
 reg_process_angle = System.getProperty( "reg_process_angle" );
 reg_process_illumination = System.getProperty( "reg_process_illumination" );
 reg_process_tile = System.getProperty( "reg_process_tile" );
 reg_process_timepoint = System.getProperty( "reg_process_timepoint" );
 
-System.out.println( "parallel_timepoints = " + parallel_timepoints );
+unique_id = System.getProperty( "parallel_timepoints" );
+String processing_timepoint_string = "";
+if (unique_id != null)
+{
+    processing_timepoint_string = "processing_timepoint=[Timepoint " + unique_id + "] "
+}
+else
+{
+    System.out.println( "Could not retrieve parallel_timepoints property." );
+}
+
 System.out.println( "process_angle = " + reg_process_angle );
 System.out.println( "process_illumination = " + reg_process_illumination );
 System.out.println( "process_tile = " + reg_process_tile );
 System.out.println( "process_timepoints = " + reg_process_timepoint );
+System.out.println( processing_timepoint_string );
 
 // Interest point detection parameters
 System.out.println( "-------------------------------------------------------" );
@@ -453,10 +462,11 @@ System.out.println("(Detect Interest Points for Registration , select=" + xml_pa
 	"process_angle=[" + reg_process_angle + "] " +
 	"process_channel=[" + reg_process_channel + "] " +
 	"process_illumination=[" + reg_process_illumination + "] " +
+	"process_tile=[" + reg_process_tile + "] " +
 	"process_timepoint=[" + reg_process_timepoint + "] " +
 	processing_channel_string +
 	"xml_output=[Save every XML with user-provided unique id]" + " " +
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+	processing_timepoint_string +
 	"type_of_interest_point_detection=[" + type_of_detection + "] " +
 	"label_interest_points=" + label_interest_points + " " +
 	downsample_images +
@@ -474,10 +484,11 @@ IJ.run("Detect Interest Points for Registration",
 	"process_angle=[" + reg_process_angle + "] " +
 	"process_channel=[" + reg_process_channel + "] " +
 	"process_illumination=[" + reg_process_illumination + "] " +
+	"process_tile=[" + reg_process_tile + "] " +
 	"process_timepoint=[" + reg_process_timepoint + "] " +
 	processing_channel_string +
 	"xml_output=[Save every XML with user-provided unique id]" + " " +
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+	processing_timepoint_string +
 	"type_of_interest_point_detection=[" + type_of_detection + "] " +
 	"label_interest_points=" + label_interest_points + " " +
         downsample_images +
@@ -506,7 +517,7 @@ System.out.println("Register Dataset based on Interest Points , select=" + xml_p
         "process_illumination=[" + reg_process_illumination + "] " +
         "process_timepoint=[" + reg_process_timepoint + "] " +
 	"xml_output=[Do not process on cluster] " + 
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+	    processing_timepoint_string +
         "registration_algorithm=[" + registration_algorithm + "] " +
         "type_of_registration=[" + type_of_registration + "] " +
         reg_single_channel_string +
@@ -528,7 +539,7 @@ IJ.run("Register Dataset based on Interest Points",
         "process_illumination=[" + reg_process_illumination + "] " +
         "process_timepoint=[" + reg_process_timepoint + "] " +
 	"xml_output=[Do not process on cluster] " + 
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+	    processing_timepoint_string +
         "registration_algorithm=[" + registration_algorithm + "] " +
         "type_of_registration=[" + type_of_registration + "] " +
         reg_single_channel_string +
