@@ -54,17 +54,13 @@ System.out.println( processing_timepoint_string );
 System.out.println( "-------------------------------------------------------" );
 System.out.println( "Detection of Interest Points: " );
 
-label_interest_points= System.getProperty( "label_interest_points" );
-type_of_registration = System.getProperty( "type_of_registration" );
 type_of_detection = System.getProperty( "type_of_detection" );
+label_interest_points= System.getProperty( "label_interest_points" );
 subpixel_localization = System.getProperty( "subpixel_localization" );
-imglib_container = System.getProperty( "imglib_container" );
 
-System.out.println( "label_interest_points = " + label_interest_points );
-System.out.println( "type_of_registration = " + type_of_registration );
 System.out.println( "type_of_detection = " + type_of_detection );
+System.out.println( "label_interest_points = " + label_interest_points );
 System.out.println( "subpixel_localization = " + subpixel_localization );
-System.out.println( "imglib_container = " + imglib_container );
 
 // Registration parameters
 System.out.println( "-------------------------------------------------------" );
@@ -72,6 +68,7 @@ System.out.println( "Parameters for Registration: " );
 
 registration_algorithm = System.getProperty( "registration_algorithm" );
 
+type_of_registration = System.getProperty( "type_of_registration" );
 fix_tiles = System.getProperty( "fix_tiles" );
 map_back_tiles = System.getProperty( "map_back_tiles" );
 transformation_model = System.getProperty( "transformation_model" );
@@ -80,6 +77,7 @@ float lambda = Float.parseFloat( System.getProperty( "lambda" ) );
 int allowed_error_for_ransac = Integer.parseInt( System.getProperty( "allowed_error_for_ransac" ) );
 significance = System.getProperty( "significance" );
 
+System.out.println( "type_of_registration = " + type_of_registration );
 System.out.println( "registration_algorithm = " + registration_algorithm );
 System.out.println( "fix_tiles = " + fix_tiles );
 System.out.println( "map_back_tiles = " + map_back_tiles );
@@ -268,7 +266,7 @@ else if (reg_process_channel.equalsIgnoreCase( "All channels" ) && channel_token
 		*/
 		String channel_part = "interest_point_specification=[Advanced ...] " +
                                       "sigma=" + sigma + " " +
-                                      "threshold=" + dog_threshold + " " +
+                                      "threshold=" + threshold_gaussian + " " +
                                       "find_maxima";
 		channel_string_multi.append(channel_part);
 		channel_string_multi.append(" ");
