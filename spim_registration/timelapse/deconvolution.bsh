@@ -303,7 +303,8 @@ IJ.run("Assign PSFs",
 	"process_channel=[All channels] " +
 	"process_illumination=[All illuminations] " +
 	"process_tile=[All tiles] " +
-	"process_timepoint=[All timepoints] " +
+	"process_timepoint=[" + process_timepoint + "] " +
+	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
 	"type=[Assign existing PSF to all selected views]");
 }
 catch ( e ) { 
