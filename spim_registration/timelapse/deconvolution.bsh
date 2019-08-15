@@ -295,8 +295,7 @@ System.out.println( "produce=" + produce );
 
 // Assign existing PSFs (temporary stuff)
 
-assigning_string = "Assign PSFs",
-	"select=" + image_file_directory + merged_xml + " " +
+assigning_string = "select=" + image_file_directory + merged_xml + " " +
 	"unique_id=" + unique_id + " " +
 	"process_angle=[All angles] " +
 	"process_channel=[All channels] " +
@@ -310,7 +309,7 @@ System.out.println( "=======================================================" );
 System.out.println( "Assigning PSFs" );
 	System.out.println(assigning_string);
 	try {
-    IJ.run(assigning_string);
+    IJ.run("Assign PSFs", assigning_string);
 }
 catch ( e ) { 
 
