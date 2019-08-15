@@ -295,9 +295,8 @@ System.out.println( "produce=" + produce );
 
 // Assign existing PSFs (temporary stuff)
 
-try {
-IJ.run("Assign PSFs",
-	"select=" + xml_path + xml_filename + ".xml " +
+assigning_string = "Assign PSFs",
+	"select=" + image_file_directory + merged_xml + " " +
 	"unique_id=" + unique_id + " " +
 	"process_angle=[All angles] " +
 	"process_channel=[All channels] " +
@@ -305,7 +304,13 @@ IJ.run("Assign PSFs",
 	"process_tile=[All tiles] " +
 	"process_timepoint=[" + process_timepoint + "] " +
 	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-	"type=[Assign existing PSF to all selected views]");
+	"type=[Assign existing PSF to all selected views]";
+
+System.out.println( "=======================================================" );
+System.out.println( "Assigning PSFs" );
+	System.out.println(assigning_string);
+	try {
+    IJ.run(assigning_string);
 }
 catch ( e ) { 
 
