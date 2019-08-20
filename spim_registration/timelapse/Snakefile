@@ -402,7 +402,8 @@ rule deconvolution:
         -Ddeco_output_file_directory={jdir} \
         -Dmerged_xml={merged_xml_file} \
         -Dparallel_timepoints={file_id_w} \
-        -Dprocess_timepoint={process_timepoint} \
+        -Dangles={angles} \
+		-Dprocess_timepoint={process_timepoint} \
         -Dchannels={channels} \
         -Ddownsample_deco={downsample_deco} \
 		-Dinput={input} \
