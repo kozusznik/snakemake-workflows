@@ -320,9 +320,9 @@ for ( int channel = 0; channel < channel_token.length; channel++) {
 		"process_tile=[All tiles] " +
 		"process_timepoint=[" + process_timepoint + "] " +
 		"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-		"type=[Assign existing PSF to all selected views]" +
-		"browse=" + image_file_directory + "psf/psf_t" + process_timepoint + "_v" + viewCount + ".tif" +
-		"specify=" + image_file_directory + "psf/psf_t" + process_timepoint + "_v" + viewCount + ".tif";
+		"type=[Assign existing PSF to all selected views] " +
+		"browse=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif " +
+		"specify=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif";
 
 		System.out.println( "=======================================================" );
 		System.out.println( "Assigning PSFs" );
