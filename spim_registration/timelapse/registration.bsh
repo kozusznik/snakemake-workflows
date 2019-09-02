@@ -37,7 +37,7 @@ unique_id = System.getProperty( "parallel_timepoints" );
 String processing_timepoint_string = "";
 if (unique_id != null)
 {
-    processing_timepoint_string = "processing_timepoint=[Timepoint " + unique_id + "] ";
+    processing_timepoint_string = "processing_timepoint=[Timepoint " + Integer.parseInt(unique_id).toString() + "] ";
 }
 else
 {
