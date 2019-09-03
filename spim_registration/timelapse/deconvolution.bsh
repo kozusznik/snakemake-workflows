@@ -153,56 +153,56 @@ System.out.println( "deco_output_file_directory = " + deco_output_file_directory
 
 // PSF Parameters
 
-//System.out.println( "-------------------------------------------------------" );
-//System.out.println( "PSF Parameters: " );
-//
-//// Define the way how PSF parameters will be determined
-//psf_estimation = System.getProperty( "psf_estimation", "Extract from beads" );
-//psf_estimation_string = "";
-//if (psf_estimation.equals( "Extract from beads" ))
-//{
-//	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
-//	System.out.println( "PSF will be extracted from beads" );
-//} 
-//else if (psf_estimation.equals( "Provide file with PSF" )) 
-//{
-//	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
-//	System.out.println( "PSF will be extracted from the provided files" );
-//} 
-//else 
-//{
-//	System.out.println( "PSF estimation setting bad" );
-//}
-//
-//// Extracting PSF parameters from beads - channel settings
-//// 1. parse channels
-//channels = System.getProperty( "channels" );
-//System.out.println( "Channels: " + channels );
-//// 2. parse detections_to_extract_psf_for_channel
-//detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
-//System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
-//// 3. split channels and detections_to_extract_psf_for_channel
-//String delims = "[,]";
-//String[] channel_token = channels.split(delims);
-//String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
-//// 4. assemble channel_string
-//StringBuilder channel_string = new StringBuilder();
-//for (int channel=0; channel < channel_token.length; channel++ )
-//{
-//	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
-//	channel_string.append( channel_part );
-//	channel_string.append(" ");
-//}
-//System.out.println( channel_string );
-//
-//// Extracting PSF parameters from beads - PSF size settings
-//psf_size_x = System.getProperty( "psf_size_x" );
-//psf_size_y = System.getProperty( "psf_size_y" );
-//psf_size_z = System.getProperty( "psf_size_z" );
-//System.out.println( "psf_size_x = " + psf_size_x );
-//System.out.println( "psf_size_y = " + psf_size_y );
-//System.out.println( "psf_size_z = " + psf_size_z );
-//
+System.out.println( "-------------------------------------------------------" );
+System.out.println( "PSF Parameters: " );
+
+// Define the way how PSF parameters will be determined
+psf_estimation = System.getProperty( "psf_estimation", "Extract from beads" );
+psf_estimation_string = "";
+if (psf_estimation.equals( "Extract from beads" ))
+{
+	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+	System.out.println( "PSF will be extracted from beads" );
+} 
+else if (psf_estimation.equals( "Provide file with PSF" )) 
+{
+	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+	System.out.println( "PSF will be extracted from the provided files" );
+} 
+else 
+{
+	System.out.println( "PSF estimation setting bad" );
+}
+
+// Extracting PSF parameters from beads - channel settings
+// 1. parse channels
+channels = System.getProperty( "channels" );
+System.out.println( "Channels: " + channels );
+// 2. parse detections_to_extract_psf_for_channel
+detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
+System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
+// 3. split channels and detections_to_extract_psf_for_channel
+String delims = "[,]";
+String[] channel_token = channels.split(delims);
+String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
+// 4. assemble channel_string
+StringBuilder channel_string = new StringBuilder();
+for (int channel=0; channel < channel_token.length; channel++ )
+{
+	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
+	channel_string.append( channel_part );
+	channel_string.append(" ");
+}
+System.out.println( channel_string );
+
+// Extracting PSF parameters from beads - PSF size settings
+psf_size_x = System.getProperty( "psf_size_x" );
+psf_size_y = System.getProperty( "psf_size_y" );
+psf_size_z = System.getProperty( "psf_size_z" );
+System.out.println( "psf_size_x = " + psf_size_x );
+System.out.println( "psf_size_y = " + psf_size_y );
+System.out.println( "psf_size_z = " + psf_size_z );
+
 //// Extracting PSF parameters from provided files - list of files
 //
 //// Extracting PSF parameters from provided files - use_same_psf_for_all_channels flag
@@ -293,54 +293,54 @@ System.out.println( "produce=" + produce );
 //System.out.println( "output_xml" );
 
 
-// Assign existing PSFs (temporary stuff)
-
-angles = System.getProperty( "angles" );
-channels = System.getProperty( "channels" );
-
-// Parses string angles
-String delims = "[,]";
-String[] angle_token = angles.split(delims);
-String[] channel_token = channels.split(delims);
-
-int viewCount = 0; // Assume views are contiguous and set for angles and channels only
-
-for ( int channel = 0; channel < channel_token.length; channel++) {
-	String channel_string = "processing_channel=[channel " + channel_token[channel] + "] ";
-	for ( int angle = 0; angle < angle_token.length; angle++) {
-		String angle_string = "processing_angle=[angle " + angle_token[angle] + "] ";
-				
-		assigning_string = "select=" + image_file_directory + merged_xml + " " +
-		"unique_id=" + unique_id + " " +
-		"process_angle=[Single angle (Select from List)] " +
-		angle_string +
-		"process_channel=[Single channel (Select from List)] " +
-		channel_string +
-		"process_illumination=[All illuminations] " +
-		"process_tile=[All tiles] " +
-		"process_timepoint=[" + process_timepoint + "] " +
-		"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-		"type=[Assign new PSF to all selected views] " +
-		"browse=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif " +
-		"specify=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif";
-
-		System.out.println( "=======================================================" );
-		System.out.println( "Assigning PSFs" );
-		System.out.println(assigning_string);
-		try {
-			IJ.run("Assign PSFs", assigning_string);
-		}
-		catch ( e ) { 
-
-			print( "[deconvolution::assigning PSFs] caught exception: "+e );
-			//important to fail the process if exception occurs
-			runtime.exit(1);
-			
-		}
-		
-		viewCount++;
-	}
-}
+//// Assign existing PSFs (temporary stuff, consider merging with the code above)
+//
+//angles = System.getProperty( "angles" );
+//channels = System.getProperty( "channels" );
+//
+//// Parses string angles
+//String delims = "[,]";
+//String[] angle_token = angles.split(delims);
+//String[] channel_token = channels.split(delims);
+//
+//int viewCount = 0; // Assume views are contiguous and set for angles and channels only
+//
+//for ( int channel = 0; channel < channel_token.length; channel++) {
+//	String channel_string = "processing_channel=[channel " + channel_token[channel] + "] ";
+//	for ( int angle = 0; angle < angle_token.length; angle++) {
+//		String angle_string = "processing_angle=[angle " + angle_token[angle] + "] ";
+//				
+//		assigning_string = "select=" + image_file_directory + merged_xml + " " +
+//		"unique_id=" + unique_id + " " +
+//		"process_angle=[Single angle (Select from List)] " +
+//		angle_string +
+//		"process_channel=[Single channel (Select from List)] " +
+//		channel_string +
+//		"process_illumination=[All illuminations] " +
+//		"process_tile=[All tiles] " +
+//		"process_timepoint=[" + process_timepoint + "] " +
+//		"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+//		"type=[Assign new PSF to all selected views] " +
+//		"browse=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif " +
+//		"specify=" + image_file_directory + "psf/psf_t" + parallel_timepoints + "_v" + viewCount + ".tif";
+//
+//		System.out.println( "=======================================================" );
+//		System.out.println( "Assigning PSFs" );
+//		System.out.println(assigning_string);
+//		try {
+//			IJ.run("Assign PSFs", assigning_string);
+//		}
+//		catch ( e ) { 
+//
+//			print( "[deconvolution::assigning PSFs] caught exception: "+e );
+//			//important to fail the process if exception occurs
+//			runtime.exit(1);
+//			
+//		}
+//		
+//		viewCount++;
+//	}
+//}
 
 // Execute Fiji Plugin
 System.out.println( "=======================================================" );
@@ -361,12 +361,12 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
 //	"maximal_x=" + maximal_x_deco + " " +
 //	"maximal_y=" + maximal_y_deco + " " +
 //	"maximal_z=" + maximal_z_deco + " " +
-//  "psf_estimation=[" + psf_estimation + "] " +
-//	"psf_display=[Do not show PSFs] " +
-//	channel_string +
-//	"psf_size_x=" + psf_size_x + " " +
-//	"psf_size_y=" + psf_size_y + " " +
-//	"psf_size_z=" + psf_size_z + " " +
+    "psf_estimation=[" + psf_estimation + "] " +
+	"psf_display=[Do not show PSFs] " +
+	channel_string +
+	"psf_size_x=" + psf_size_x + " " +
+	"psf_size_y=" + psf_size_y + " " +
+	"psf_size_z=" + psf_size_z + " " +
 //	use_same_psf_for_all_channels_string +
 //	transform_psfs_string +
 //  "imglib2_container=[" + imglib2_container + "] " +
@@ -406,12 +406,12 @@ IJ.run("Deconvolve",
 //	"maximal_x=" + maximal_x_deco + " " +
 //	"maximal_y=" + maximal_y_deco + " " +
 //	"maximal_z=" + maximal_z_deco + " " +
-//	"psf_estimation=[" + psf_estimation + "] " +
-//	"psf_display=[Do not show PSFs] " +
-//  channel_string +
-//	"psf_size_x=" + psf_size_x + " " +
-//	"psf_size_y=" + psf_size_y + " " +
-//	"psf_size_z=" + psf_size_z + " " +
+	"psf_estimation=[" + psf_estimation + "] " +
+	"psf_display=[Do not show PSFs] " +
+    channel_string +
+	"psf_size_x=" + psf_size_x + " " +
+	"psf_size_y=" + psf_size_y + " " +
+	"psf_size_z=" + psf_size_z + " " +
 //	use_same_psf_for_all_channels_string +
 //	transform_psfs_string +
 //	"imglib2_container=[" + imglib2_container_deco + "] " +

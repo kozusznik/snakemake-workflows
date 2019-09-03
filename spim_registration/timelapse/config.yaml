@@ -50,9 +50,9 @@ common: {
   #          channels
   #          illuminations
   # ----------------------------------------------------------------------------
-  hdf5_xml_filename: '"dataset_split"', 
-  ntimepoints: 1,        # number of timepoints of dataset
-  angles: "20,50,80,110,140,170",   # format e.g.: "0,72,144,216,288",
+  hdf5_xml_filename: '"datasetPetrPipeline02"', 
+  ntimepoints: 140,        # number of timepoints of dataset
+  angles: "56,128,200,272,344",   # format e.g.: "0,72,144,216,288",
   channels: "488,561",     # format e.g.: "green,red", IMPORTANT: for tif 0,1 etc!
   illumination: "0",     # format e.g.: "0,1",
   #
@@ -61,7 +61,7 @@ common: {
   # Description: applies only to .czi dataset
   # Options: name of first czi file
   # ----------------------------------------------------------------------------
-  first_czi: "8.czi", # use .czi suffix
+  first_czi: "08-06-2019_GAPYFP_HismCh_ZenKD1ug_30C_LZ1_5min_5V_2.czi", # use .czi suffix
   #
   # 2.3. Settings for .tif datasets --------------------------------------------
   #
@@ -90,13 +90,13 @@ common: {
   #
   # Dual channel 1 Channel contains the beads: which channel contains the beads?
   # Ignore if Single Channel or Dual Channel both channels contain beads
-  source_channel: "488", # channel that contains the beads
-  target_channel: "561", # channel without beads
+  source_channel: "red", # channel that contains the beads
+  target_channel: "green", # channel without beads
   # reg_interest_points_channel:
   # Single Channel: '"beads"'
   # Dual Channel: '"beads,beads"'
   # Dual Channel: Channel does not contain the beads '"[(DO NOT register this channel)],beads"'
-  reg_interest_points_channel: '"nuclei-out,nuclei-out"',
+  reg_interest_points_channel: '"beads"',
   #
   # type of detection: '"Difference-of-Mean (Integral image based)"' or '"Difference-of-Gaussian"'
   type_of_detection: '"Difference-of-Gaussian"',
@@ -107,8 +107,8 @@ common: {
   reg_threshold: '0.005',
   # Settings for Difference-of-Gaussian
   # For multiple channels 'value1,value2' delimiter is ,
-  sigma: '0.5,0.5',
-  threshold_gaussian: '0.025,0.025',
+  sigma: '1.488',
+  threshold_gaussian: '0.005',
   # ============================================================================
   # 4. Timelapse registration
   #
@@ -150,11 +150,10 @@ common: {
   #
   #          Matrix for downsampling
   # ----------------------------------------------------------------------------
-  #external_trafo_switch: "_transform",
-  external_trafo_switch: "",
+  external_trafo_switch: "_transform",
   #
   # Matrix for downsampling
-  #matrix_transform: '"0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0"',
+  matrix_transform: '"0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0"',
   #
   # 6.2. Deconvolution settings ------------------------------------------------
   # 
@@ -163,25 +162,17 @@ common: {
   #          Cropping parameters taking downsampling into account!
   #          Channel settings for deconvolution
   # ----------------------------------------------------------------------------
-  iterations: '5',        # number of iterations
-  
-  # Bounding box settings
-  #
-  # Description: determines whether a pre-defined bounding box will be used or not
-  # Options: "Use pre-defined Bounding Box"
-  #            - requires "bounding_box_title"
-  #          "Define manually"
-  #            - requires particular coordinates to be set
-  #bounding_box: '"Use pre-defined Bounding Box"',
-  #bounding_box_title: '"My Bounding Box"',
-  #allow_to_modify: '"No"',
-  #minimal_x_deco: '1728',  # Cropping parameters: take downsampling into account
-  #minimal_y_deco: '-5696',
-  #minimal_z_deco: '-784',
-  #maximal_x_deco: '3118',
-  #maximal_y_deco: '-4709',
-  #maximal_z_deco: '867',
-  
+  iterations: '10',        # number of iterations
+  minimal_x_deco: '137',  # Cropping parameters: take downsampling into account
+  minimal_y_deco: '-8',
+  minimal_z_deco: '-211',
+  maximal_x_deco: '527',
+  maximal_y_deco: '964',
+  maximal_z_deco: '240',
+  # Channel settings for deconvolution
+  # Single Channel: '"beads"'
+  # Dual Channel: '"beads,beads"'
+  # Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
   # PSF estimation settings
   #
   # Description: determines whether PSFs will be extracted from beads or from a file
@@ -201,11 +192,11 @@ common: {
   #            - requires "transform_psfs"
   #               - PSFs should be transformed: '"Yes"'
   #               - PSFs should not be transformed: '"No"'
-  #psf_estimation: '"Provide file with PSF"',
-  #detections_to_extract_psf_for_channel: '"nuclei-out,nuclei-out"',
-  #psf_size_x: '19',
-  #psf_size_y: '19',
-  #psf_size_z: '25',
+  psf_estimation: '"Provide file with PSF"',
+  detections_to_extract_psf_for_channel: '"beads,beads"',
+  psf_size_x: '19',
+  psf_size_y: '19',
+  psf_size_z: '25',
   #use_same_psf_for_all_channels: '"Yes"',
   #transform_psfs: '"Yes"',
   
@@ -337,8 +328,8 @@ resave_hdf5: {
   setups_per_partition: '0',
   timepoints_per_partition: '1',
   resave_timepoint: '"All Timepoints"',
-  resave_angle: '"[Single channel (Select from List)] processing_channel=[488]"',
-  resave_channel: '"0"',
+  resave_angle: '"All angles"',
+  resave_channel: '"All channels"',
   resave_illumination: '"All illuminations"',
   resave_tile: '"All tiles"',
   bsh_file: "export.bsh"
