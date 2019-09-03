@@ -163,12 +163,7 @@ common: {
   #          Channel settings for deconvolution
   # ----------------------------------------------------------------------------
   iterations: '10',        # number of iterations
-  minimal_x_deco: '137',  # Cropping parameters: take downsampling into account
-  minimal_y_deco: '-8',
-  minimal_z_deco: '-211',
-  maximal_x_deco: '527',
-  maximal_y_deco: '964',
-  maximal_z_deco: '240',
+
   # Channel settings for deconvolution
   # Single Channel: '"beads"'
   # Dual Channel: '"beads,beads"'
@@ -199,6 +194,24 @@ common: {
   psf_size_z: '25',
   #use_same_psf_for_all_channels: '"Yes"',
   #transform_psfs: '"Yes"',
+  #
+  # Bounding box settings
+  #
+  # Description: determines whether a pre-defined bounding box will be used or not
+  # Options: "Use pre-defined bounding box"
+  #            - requires "bounding_box_title"
+  #          "Define manually"
+  #            - requires particular coordinates to be set
+  bounding_box: '"Define manually",
+  #bounding_box_title: '"My bounding box",
+  allow_to_modify: '"No"',
+  minimal_x_deco: '-876',  # Cropping parameters: take downsampling into account!
+  minimal_y_deco: '5176',
+  minimal_z_deco: '-2290',
+  maximal_x_deco: '356',
+  maximal_y_deco: '6943',
+  maximal_z_deco: '-1045',
+  
   
   # ============================================================================
   # Resave output
