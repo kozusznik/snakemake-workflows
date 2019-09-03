@@ -202,8 +202,8 @@ common: {
   #            - requires "bounding_box_title"
   #          "Define manually"
   #            - requires particular coordinates to be set
-  bounding_box: '"Define manually",
-  #bounding_box_title: '"My bounding box",
+  bounding_box: '"Define manually"',
+  #bounding_box_title: '"My bounding box"',
   allow_to_modify: '"No"',
   minimal_x_deco: '-876',  # Cropping parameters: take downsampling into account!
   minimal_y_deco: '5176',
