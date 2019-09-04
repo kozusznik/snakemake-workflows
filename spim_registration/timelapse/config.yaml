@@ -164,10 +164,6 @@ common: {
   # ----------------------------------------------------------------------------
   iterations: '10',        # number of iterations
 
-  # Channel settings for deconvolution
-  # Single Channel: '"beads"'
-  # Dual Channel: '"beads,beads"'
-  # Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
   # PSF estimation settings
   #
   # Description: determines whether PSFs will be extracted from beads or from a file
@@ -187,6 +183,8 @@ common: {
   #            - requires "transform_psfs"
   #               - PSFs should be transformed: '"Yes"'
   #               - PSFs should not be transformed: '"No"'
+  #
+  # Note: Do not comment out unused stuff as Snakefile loads it no matter what
   psf_estimation: '"Provide file with PSF"',
   detections_to_extract_psf_for_channel: '"beads,beads"',
   psf_size_x: '19',
@@ -202,8 +200,10 @@ common: {
   #            - requires "bounding_box_title"
   #          "Define manually"
   #            - requires particular coordinates to be set
+  #
+  # Note: Do not comment out unused stuff as Snakefile loads it no matter what
   bounding_box: '"Define manually"',
-  #bounding_box_title: '"My bounding box"',
+  bounding_box_title: '"My bounding box"',
   allow_to_modify: '"No"',
   minimal_x_deco: '-876',  # Cropping parameters: take downsampling into account!
   minimal_y_deco: '5176',
