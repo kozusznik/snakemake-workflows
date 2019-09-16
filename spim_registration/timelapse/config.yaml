@@ -55,6 +55,7 @@ common: {
   angles: "56,128,200,272,344",   # format e.g.: "0,72,144,216,288",
   channels: "488,561",     # format e.g.: "green,red", IMPORTANT: for tif 0,1 etc!
   illumination: "0",     # format e.g.: "0,1",
+  label_interest_points: '"beads"',
   #
   # 2.2. Settings for .czi files -----------------------------------------------
   #
@@ -168,10 +169,7 @@ common: {
   #
   # Description: determines whether PSFs will be extracted from beads or from a file
   # Options: "Extract from beads"
-  #            - requires "detections_to_extract_psf_for_channel" specified as follows:
-  #               - Single Channel: '"beads"'
-  #               - Dual Channel: '"beads,beads"'
-  #               - Dual Channel one channel contains beads: '"[Same PSF as channel red],beads"'
+  #            - requires "label_interest_points" in General settings
   #            - requires "psf_size_x"
   #            - requires "psf_size_y"
   #            - requires "psf_size_z"
@@ -185,8 +183,7 @@ common: {
   #               - PSFs should not be transformed: '"No"'
   #
   # Note: Do not comment out unused stuff as Snakefile loads it no matter what
-  psf_estimation: '"Provide file with PSF"',
-  detections_to_extract_psf_for_channel: '"beads,beads"',
+  psf_estimation: '"Extract from beads"',
   psf_size_x: '19',
   psf_size_y: '19',
   psf_size_z: '25',
@@ -361,7 +358,6 @@ registration: {
   downsample_xy: '"Match Z Resolution (less downsampling)"',
   downsample_z: "1x",
   # Standard Settings for bead based registration
-  label_interest_points: '"beads"',              
   reg_process_angle: '"All angles"',
   reg_process_illumination: '"All illuminations"',
   reg_process_tile: '"All tiles"',

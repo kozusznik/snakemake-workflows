@@ -173,26 +173,9 @@ else
 	System.out.println( "PSF estimation setting bad" );
 }
 
-// Extracting PSF parameters from beads - channel settings
-// 1. parse channels
-channels = System.getProperty( "channels" );
-System.out.println( "Channels: " + channels );
-// 2. parse detections_to_extract_psf_for_channel
-detections_to_extract_psf_for_channel = System.getProperty( "detections_to_extract_psf_for_channel" );
-System.out.println( "PSF: " + detections_to_extract_psf_for_channel );
-// 3. split channels and detections_to_extract_psf_for_channel
-String delims = "[,]";
-String[] channel_token = channels.split(delims);
-String[] psf_token = detections_to_extract_psf_for_channel.split(delims);
-// 4. assemble channel_string
-StringBuilder channel_string = new StringBuilder();
-for (int channel=0; channel < channel_token.length; channel++ )
-{
-	String channel_part = "detections_to_extract_psf_for_channel_" + channel_token[channel] + "=" + psf_token[channel] + " ";
-	channel_string.append( channel_part );
-	channel_string.append(" ");
-}
-System.out.println( channel_string );
+// Extracting PSF parameters from beads - interest point label
+label_interest_points = System.getProperty( "label_interest_points" );
+System.out.println( "label_interest_points = " + label_interest_points );
 
 // Extracting PSF parameters from beads - PSF size settings
 psf_size_x = System.getProperty( "psf_size_x" );
@@ -292,7 +275,7 @@ System.out.println( "produce=" + produce );
 //System.out.println( "output_xml" );
 
 
-//// Assign existing PSFs (temporary stuff, consider merging with the code above)
+//// Assign existing PSFs (merge with the code for Extracting PSF parameters from provided files)
 //
 //angles = System.getProperty( "angles" );
 //channels = System.getProperty( "channels" );
@@ -341,6 +324,39 @@ System.out.println( "produce=" + produce );
 //	}
 //}
 
+// Extract PSFs
+if (psf_estimation_string.equals( "psf_estimation=[Extract from beads]" ))
+{
+    extraction_string =
+	"select=" + image_file_directory + merged_xml + " " +
+	"browse=" + image_file_directory + merged_xml + " " +
+	"process_angle=[All angles] " +
+	"process_channel=[All channels] " +
+	"process_illumination=[All illuminations] " +
+	"process_tile=[All tiles] " +
+	"process_timepoint=[" + process_timepoint + "] " +
+	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
+	"use_corresponding " +
+    "remove_min_intensity_projections_from_psf " +
+	"psf_size_x=" + psf_size_x + " " +
+	"psf_size_y=" + psf_size_y + " " +
+	"psf_size_z=" + psf_size_z;
+	;
+	
+	System.out.println( "=======================================================" );
+	System.out.println( "Extracting PSFs" );
+	System.out.println(extraction_string);
+	try {
+	    IJ.run("Extract PSFs", extraction_string);
+    }
+	catch ( e ) { 
+
+		print( "[deconvolution::extracting PSFs] caught exception: "+e );
+		//important to fail the process if exception occurs
+		runtime.exit(1);
+	}
+}
+
 // Execute Fiji Plugin
 System.out.println( "=======================================================" );
 System.out.println( "Starting Deconvolution" );
@@ -360,12 +376,9 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
 //	"maximal_x=" + maximal_x_deco + " " +
 //	"maximal_y=" + maximal_y_deco + " " +
 //	"maximal_z=" + maximal_z_deco + " " +
-    "psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
-	channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
+//  "psf_estimation=[" + psf_estimation + "] " +
+//	"psf_display=[Do not show PSFs] " +
+//	channel_string +
 //	use_same_psf_for_all_channels_string +
 //	transform_psfs_string +
 //  "imglib2_container=[" + imglib2_container + "] " +
@@ -405,12 +418,9 @@ IJ.run("Deconvolve",
 //	"maximal_x=" + maximal_x_deco + " " +
 //	"maximal_y=" + maximal_y_deco + " " +
 //	"maximal_z=" + maximal_z_deco + " " +
-	"psf_estimation=[" + psf_estimation + "] " +
-	"psf_display=[Do not show PSFs] " +
-    channel_string +
-	"psf_size_x=" + psf_size_x + " " +
-	"psf_size_y=" + psf_size_y + " " +
-	"psf_size_z=" + psf_size_z + " " +
+//	"psf_estimation=[" + psf_estimation + "] " +
+//  "psf_display=[Do not show PSFs] " +
+//  channel_string +
 //	use_same_psf_for_all_channels_string +
 //	transform_psfs_string +
 //	"imglib2_container=[" + imglib2_container_deco + "] " +

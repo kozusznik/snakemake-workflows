@@ -401,7 +401,7 @@ rule deconvolution:
         -Dimage_file_directory={jdir} \
         -Ddeco_output_file_directory={jdir} \
 		-Dpsf_estimation={psf_estimation} \
-        -Ddetections_to_extract_psf_for_channel={detections_to_extract_psf_for_channel} \
+        -Dlabel_interest_points \
         -Dpsf_size_x={psf_size_x} \
         -Dpsf_size_y={psf_size_y} \
         -Dpsf_size_z={psf_size_z} \
