@@ -455,7 +455,7 @@ System.out.println( "Activated Cluster Processing" );
 System.out.println( "=======================================================" );
 System.out.println( "Starting Detection of Interest Points" );
 
-System.out.println("(Detect Interest Points for Registration , select=" + xml_path + xml_filename + ".xml " +
+detection_string = "select=" + xml_path + xml_filename + ".xml " +
 	"unique_id=" + unique_id + " " +
 	"process_angle=[" + reg_process_angle + "] " +
 	"process_channel=[" + reg_process_channel + "] " +
@@ -467,35 +467,18 @@ System.out.println("(Detect Interest Points for Registration , select=" + xml_pa
 	processing_timepoint_string +
 	"type_of_interest_point_detection=[" + type_of_detection + "] " +
 	"label_interest_points=" + label_interest_points + " " +
+	"group_tiles " +
 	downsample_images +
 	"subpixel_localization=[" + subpixel_localization + "] " +
 	downsample_string +
 	channel_string + "" +
 	channel_string_multi + "" +
-	compute_string + "" +
-	");");
+	compute_string + "";
+
+System.out.println("(Detect Interest Points for Registration, " + detection_string);
 
 try {
-IJ.run("Detect Interest Points for Registration",
-	"select=" + xml_path + xml_filename + ".xml " +
-	"unique_id=" + unique_id + " " +
-	"process_angle=[" + reg_process_angle + "] " +
-	"process_channel=[" + reg_process_channel + "] " +
-	"process_illumination=[" + reg_process_illumination + "] " +
-	"process_tile=[" + reg_process_tile + "] " +
-	"process_timepoint=[" + reg_process_timepoint + "] " +
-	processing_channel_string +
-	"xml_output=[Save every XML with user-provided unique id]" + " " +
-	processing_timepoint_string +
-	"type_of_interest_point_detection=[" + type_of_detection + "] " +
-	"label_interest_points=" + label_interest_points + " " +
-        downsample_images +
-	"subpixel_localization=[" + subpixel_localization + "] " +
-	downsample_string +
-	channel_string + "" +
-	channel_string_multi + "" +
-	compute_string + "" +
-	"");
+    IJ.run("Detect Interest Points for Registration", detection_string);
 }
 catch ( e ) { 
 
