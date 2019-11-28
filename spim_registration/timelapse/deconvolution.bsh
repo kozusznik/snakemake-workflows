@@ -163,11 +163,11 @@ if (psf_estimation.equals( "Extract from beads" ))
 	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
 	System.out.println( "PSF will be extracted from beads" );
 } 
-else if (psf_estimation.equals( "Provide file with PSF" )) 
-{
-	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
-	System.out.println( "PSF will be extracted from the provided files" );
-} 
+//else if (psf_estimation.equals( "Provide file with PSF" )) 
+//{
+//	psf_estimation_string = "psf_estimation=[" + psf_estimation + "] ";
+//	System.out.println( "PSF will be extracted from the provided files" );
+//} 
 else 
 {
 	System.out.println( "PSF estimation setting bad" );
@@ -325,7 +325,7 @@ System.out.println( "produce=" + produce );
 //}
 
 // Extract PSFs
-if (psf_estimation_string.equals( "psf_estimation=[Extract from beads]" ))
+if (psf_estimation_string.equals( "psf_estimation=[Extract from beads] " ))
 {
     extraction_string =
 	"select=" + image_file_directory + merged_xml + " " +
