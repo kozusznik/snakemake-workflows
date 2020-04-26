@@ -341,7 +341,6 @@ if (psf_estimation_string.equals( "psf_estimation=[Extract from beads] " ))
 	"psf_size_x=" + psf_size_x + " " +
 	"psf_size_y=" + psf_size_y + " " +
 	"psf_size_z=" + psf_size_z;
-	;
 	
 	System.out.println( "=======================================================" );
 	System.out.println( "Extracting PSFs" );
@@ -357,10 +356,8 @@ if (psf_estimation_string.equals( "psf_estimation=[Extract from beads] " ))
 	}
 }
 
-// Execute Fiji Plugin
-System.out.println( "=======================================================" );
-System.out.println( "Starting Deconvolution" );
-System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " " + 
+deconvolution_string =
+    "select=" + image_file_directory + merged_xml + " " + 
 	"process_angle=[All angles] " +
 	"process_channel=[All channels] " + 
 	"process_illumination=[All illuminations] " +
@@ -398,49 +395,14 @@ System.out.println("Deconvolve select=" + image_file_directory + merged_xml + " 
 	"produce=[" + produce + "] " +
 	"fused_image=[" + fused_image + "] " +
 	"output_file_directory=" + image_file_directory + " " +
-	cuda_settings);
+	cuda_settings;
 
+// Execute Fiji Plugin
+System.out.println( "=======================================================" );
+System.out.println( "Starting Deconvolution" );
+System.out.println("Deconvolve", deconvolution_string);
 try {
-IJ.run("Deconvolve", 
-	"select=" + image_file_directory + merged_xml + " " + 
-	"process_angle=[All angles] " +
-	"process_channel=[All channels] " + 
-	"process_illumination=[All illuminations] " +
-	"process_tile=[All tiles] " +
-	"process_timepoint=[" + process_timepoint + "] " +
-	"processing_timepoint=[Timepoint " + parallel_timepoints + "] " +
-//  bounding_box_string +
-//	allow_to_modify_string +
-//	"bounding_box_title=[" + bounding_box_title + "] " +
-//	"minimal_x=" + minimal_x_deco + " " +
-//	"minimal_y=" + minimal_y_deco + " " +
-//	"minimal_z=" + minimal_z_deco + " " +
-//	"maximal_x=" + maximal_x_deco + " " +
-//	"maximal_y=" + maximal_y_deco + " " +
-//	"maximal_z=" + maximal_z_deco + " " +
-//	"psf_estimation=[" + psf_estimation + "] " +
-//  "psf_display=[Do not show PSFs] " +
-//  channel_string +
-//	use_same_psf_for_all_channels_string +
-//	transform_psfs_string +
-//	"imglib2_container=[" + imglib2_container_deco + "] " +
-//  "imglib2_container_ffts=[" + imglib2_container_deco + "] " +
-    "downsampling=" + downsampling + " " +
-    "input=" + input + " " +
-	"weight=" + weight + " " +
-    "initialize_with=[" + initialize_with + "] " +
-	"type_of_iteration=[" + type_of_iteration + "] " +
-	fast_sequential_iterations_string +
-	"osem_acceleration=" + osem_acceleration + " " +
-	"number_of_iterations=" + iterations + " " +
-	"use_tikhonov_regularization " +
-	"tikhonov_parameter=" + Tikhonov_parameter + " " +
-	"compute=[" + compute + "] " +
-	compute_string +
-	"produce=[" + produce + "] " +
-	"fused_image=[" + fused_image + "] " +
-	"output_file_directory=" + image_file_directory + " " +
-	cuda_settings);
+    IJ.run("Deconvolve", deconvolution_string);
 }
 catch ( e ) {
 
